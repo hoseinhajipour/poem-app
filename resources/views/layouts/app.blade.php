@@ -19,7 +19,6 @@
                 <div class="btn btn-outline-info form-control">
                     {{auth()->user()->wallet}}
                 </div>
-
             </div>
             <div class="col-6">
                 <div class="btn btn-outline-info form-control">
