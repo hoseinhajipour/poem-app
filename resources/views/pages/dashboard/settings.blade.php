@@ -24,10 +24,10 @@
 
     <div class="row">
         <div class="col-12">
-            <button class="btn3d btn btn-primary form-control">
+            <a href="{{route('editProfile')}}" class="btn3d btn btn-primary form-control">
                 <span>ویرایش پروفایل</span>
                 <i class="fas fa-user"></i>
-            </button>
+            </a>
         </div>
     </div>
 
@@ -49,7 +49,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>مطمونی می خوای خارج بشی؟!</p>
+                    <p>مطمنی می خوای خارج بشی؟!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">نه</button>

@@ -10,7 +10,7 @@
     <livewire:styles/>
     <script src="{!!url('/js/jquery.min.js')!!}"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ url('css/style.css') }}">
+    <link rel="stylesheet" href="{{ url('css/style.css?v=1.0') }}">
     <link
         rel="stylesheet"
         href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
@@ -19,27 +19,12 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container fixed-top shadow bg-light">
-    @auth
-        <div class="row">
-            <div class="col-6">
-                <div class="btn btn-outline-info form-control">
-                    {{auth()->user()->wallet}}
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="btn btn-outline-info form-control">
-                    {{auth()->user()->score}}
-                </div>
-            </div>
-        </div>
-    @endauth
-</div>
+
+@include('layouts.parts.header')
 
 <main class="container" style="padding-top: 60px">
     {{ $slot }}
 </main>
-
 
 
 @include('layouts.parts.bottomNav')

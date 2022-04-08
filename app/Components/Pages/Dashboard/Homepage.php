@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class Homepage extends Component
 {
-    public $categories=[];
+    public $categories = [];
 
     public function route()
     {
@@ -17,11 +17,21 @@ class Homepage extends Component
             ->middleware('auth');
     }
 
-    public function mount(){
-        $this->categories=QuizCategory::all();
+    public function mount()
+    {
+        $this->categories = QuizCategory::all();
     }
+
     public function render()
     {
         return view('pages.dashboard.homepage');
+    }
+
+    public function Rewardincrement()
+    {
+        $user = auth()->user();
+        $user->wallet += 100;
+        $user->save();
+        $this->redirect('#');
     }
 }

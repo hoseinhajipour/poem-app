@@ -13,7 +13,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "tcg/voyager": "^1.5",
-        "twbs/bootstrap-icons": "^1.8"
+        "twbs/bootstrap-icons": "^1.8",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

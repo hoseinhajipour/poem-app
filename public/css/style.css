@@ -113,3 +113,17 @@
     box-shadow: 0 0 0 1px #9a00cd inset, 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, 0.3);
     background-color: #bb39d7;
 }
+
+.coins{
+    padding: 5px;
+    padding-left: 20px;
+    color: goldenrod !important;
+    font-size: 20px;
+}
+.score_box{
+    padding: 5px;
+    padding-right: 20px;
+    color: #0a53be;
+    text-align: right;
+    font-size: 20px;
+}
