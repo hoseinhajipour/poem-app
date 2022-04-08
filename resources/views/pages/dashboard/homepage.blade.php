@@ -26,7 +26,7 @@
 
     </div>
 
-    <div class="modal fade" id="ReadyForPlay" tabindex="-1" aria-labelledby="ReadyForPlay" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="ReadyForPlay" tabindex="-1" aria-labelledby="ReadyForPlay" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">

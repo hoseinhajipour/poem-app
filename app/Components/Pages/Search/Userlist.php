@@ -4,11 +4,15 @@ namespace App\Components\Pages\Search;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Userlist extends Component
 {
-    public $users=[];
+    public $users = [];
+    public $username = "";
+
+    public $currentUser;
 
     public function route()
     {
@@ -19,7 +23,26 @@ class Userlist extends Component
 
     public function render()
     {
-        $this->users = User::all();
+        $this->users = User::where("name", "LIKE", "%$this->username%")
+            ->orderby('score', 'desc')
+            ->get();
         return view('pages.search.userlist');
+        //->layout('layouts.layout-full');
+    }
+
+    public function SelectUser($userid)
+    {
+        $this->currentUser = $userid;
+    }
+
+    public function showCurrentUserProfile()
+    {
+        return redirect()->to('/user/' . $this->currentUser);
+    }
+
+    public function PlayWithCurrentUser()
+    {
+        Session::put("user_id_for_play", $this->currentUser);
+        return redirect()->to('/tournament/ready-for-play');
     }
 }
