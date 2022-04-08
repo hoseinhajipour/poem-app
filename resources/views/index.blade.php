@@ -2,11 +2,9 @@
 
 <div class="d-grid col-lg-4 mx-auto">
     <div class="card">
-        <div class="card-header">
-            @yield('title')
-        </div>
         <div class="card-body">
-            Build something amazing!
+            <a href="{{route('login')}}" class="btn3d btn btn-primary form-control">ورود به حساب کاربری</a>
+            <a href="{{route('register')}}" class="btn3d btn btn-success form-control">ایجاد حساب کاربری</a>
         </div>
     </div>
 </div>

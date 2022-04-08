@@ -33,11 +33,33 @@
 
     <div class="row">
         <div class="col-12">
-            <button class="btn3d btn btn-primary form-control">
+            <button class="btn3d btn btn-primary form-control"
+                    data-bs-toggle="modal" data-bs-target="#logoutAlert">
                 <span>خروج از حساب کاربری</span>
                 <i class="fas fa-sign-out-alt"></i>
             </button>
         </div>
     </div>
+
+
+    <div class="modal fade" id="logoutAlert" tabindex="-1" aria-labelledby="logoutAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>مطمونی می خوای خارج بشی؟!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">نه</button>
+                    <button type="button"
+                            wire:click="logout()"
+                            class="btn btn-primary" data-bs-dismiss="modal">آره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
