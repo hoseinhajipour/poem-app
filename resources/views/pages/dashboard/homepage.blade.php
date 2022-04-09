@@ -1,12 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <button class="btn3d btn btn-success form-control">
-                <span>شروع بازی رو در رو</span>
-                <i class="fas fa-play"></i>
-            </button>
-        </div>
-        <div class="col-12">
             <button id="playMovie" class="btn3d btn btn-magick form-control">
                 <span>سکه رایگان</span>
                 <i class="fas fa-video"></i>
@@ -65,7 +59,8 @@
         </div>
         @foreach($tournaments as $tournament)
             <div class="col-12">
-                <div class="alert alert-success" role="alert">
+                <div wire:click="PlayTournament({{$loop->index}})"
+                     class="btn3d btn {{$this->checkStatus($loop->index)}} form-control">
                     <div class="row">
                         <div class="col-3 text-center">
                             @if($tournament->first_user_id!= auth()->user()->id)
@@ -82,7 +77,7 @@
                             @endif
                         </div>
                         <div class="col-3 text-center">
-                            4-2
+                            {{$tournament->first_user_true_answer }} - {{$tournament->second_user_true_answer}}
                         </div>
                     </div>
                 </div>

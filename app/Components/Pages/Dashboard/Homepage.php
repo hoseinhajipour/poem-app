@@ -66,6 +66,26 @@ class Homepage extends Component
             ->OrWhere("second_user_id", auth()->user()->id)
             ->with("firstUser")
             ->with("secondUser")
+            ->latest()
             ->get();
+    }
+
+    public function PlayTournament($index)
+    {
+        if ($this->tournaments[$index]->status == "play") {
+            Session::put('current_tournament', $this->tournaments[$index]->id);
+            redirect()->to('/tournament/play');
+        }
+    }
+
+    public function checkStatus($index)
+    {
+        if ($this->tournaments[$index]->status == "play") {
+            return "btn-success";
+        } else if ($this->tournaments[$index]->status == "equal") {
+            return "btn-warning";
+        } else {
+            return "btn-default";
+        }
     }
 }

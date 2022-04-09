@@ -9,6 +9,10 @@ class Tournament extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'first_user_id', 'second_user_id',
+        'winner_user_id', 'first_user_true_answer',
+        'second_user_true_answer', 'status'];
     protected $appends = array('Winstatus', 'AllowPlay');
 
     public function firstUser()
@@ -23,7 +27,7 @@ class Tournament extends Model
 
     public function quizzes()
     {
-        return $this->hasMany(TournamentQuiz::class,'tournament_id')->with('Quiz');
+        return $this->hasMany(TournamentQuiz::class, 'tournament_id')->with('Quiz');
     }
 
     public function getWinstatusAttribute()

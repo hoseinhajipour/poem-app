@@ -3,29 +3,33 @@
         <div class="col-12">
 
             <div class="btn3d btn btn-white form-control">
-                {{$questions[$current_question_index]->quiz->description}}
+                {{$current_question->description}}
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
-            <button class="btn3d btn btn-default form-control">
-                {{$questions[$current_question_index]->quiz->answer01}}
+            <button wire:click="SelectAnswer(1)"
+                class="btn3d btn btn-default form-control">
+                {{$current_question->answer01}}
             </button>
         </div>
         <div class="col-6">
-            <button class="btn3d btn btn-default form-control">
-                {{$questions[$current_question_index]->quiz->answer02}}
+            <button wire:click="SelectAnswer(2)"
+                class="btn3d btn btn-default form-control">
+                {{$current_question->answer02}}
             </button>
         </div>
         <div class="col-6">
-            <button class="btn3d btn btn-default form-control">
-                {{$questions[$current_question_index]->quiz->answer03}}
+            <button wire:click="SelectAnswer(3)"
+                class="btn3d btn btn-default form-control">
+                {{$current_question->answer03}}
             </button>
         </div>
         <div class="col-6">
-            <button class="btn3d btn btn-default form-control">
-                {{$questions[$current_question_index]->quiz->answer04}}
+            <button wire:click="SelectAnswer(4)"
+                class="btn3d btn btn-default form-control">
+                {{$current_question->answer04}}
             </button>
         </div>
     </div>
