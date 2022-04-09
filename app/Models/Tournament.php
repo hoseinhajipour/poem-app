@@ -21,6 +21,11 @@ class Tournament extends Model
         return $this->belongsTo(User::class, "second_user_id");
     }
 
+    public function quizzes()
+    {
+        return $this->hasMany(TournamentQuiz::class,'tournament_id')->with('Quiz');
+    }
+
     public function getWinstatusAttribute()
     {
         if ($this->status == "equal") {

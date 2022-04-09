@@ -17,6 +17,7 @@
         @foreach($categories as $category)
             <div class="col-6">
                 <button class="btn3d btn btn-primary form-control"
+                        wire:click="SelectCategory({{$category->id}})"
                         data-bs-toggle="modal" data-bs-target="#ReadyForPlay">
                     <span>{{$category->name}}</span>
                     <i class="fas fa-play"></i>
@@ -26,21 +27,30 @@
 
     </div>
 
-    <div wire:ignore.self class="modal fade" id="ReadyForPlay" tabindex="-1" aria-labelledby="ReadyForPlay" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="ReadyForPlay" tabindex="-1" aria-labelledby="ReadyForPlay"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div wire:loading align="center">
+                        loading...
+                    </div>
+                    <div wire:loading.remove class="row">
                         <div class="col-6">
-                            <a href="{{route('search.user-list')}}"
-                               class="btn3d btn btn-magick form-control"
-                               >جستجو نام</a>
+                            <button wire:click="GoSearchUserPage()"
+                                    class="btn3d btn btn-magick form-control"
+                                    data-bs-dismiss="modal"
+                            >جستجو نام
+                            </button>
                         </div>
                         <div class="col-6">
-                            <button class="btn3d btn btn-magick form-control" data-bs-dismiss="modal">حریف تصادفی
+                            <button
+                                wire:click="PlayWithRandomPlayer()"
+                                class="btn3d btn btn-magick form-control"
+                                data-bs-dismiss="modal">حریف تصادفی
                             </button>
                         </div>
                     </div>
@@ -53,23 +63,31 @@
         <div class="col-12 text-center">
             <b>بازی اخیر</b>
         </div>
-
-        <div class="col-12">
-            <div class="alert alert-success" role="alert">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="col-6">
-                        Player 1234
-                    </div>
-                    <div class="col-3 text-center">
-                        4-2
+        @foreach($tournaments as $tournament)
+            <div class="col-12">
+                <div class="alert alert-success" role="alert">
+                    <div class="row">
+                        <div class="col-3 text-center">
+                            @if($tournament->first_user_id!= auth()->user()->id)
+                                <img src="{{ Voyager::image($tournament->firstUser->avatar) }}" width="64"/>
+                            @else
+                                <img src="{{ Voyager::image($tournament->secondUser->avatar) }}" width="64"/>
+                            @endif
+                        </div>
+                        <div class="col-6">
+                            @if($tournament->first_user_id!= auth()->user()->id)
+                                {{$tournament->firstUser->name}}
+                            @else
+                                {{$tournament->secondUser->name}}
+                            @endif
+                        </div>
+                        <div class="col-3 text-center">
+                            4-2
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        @endforeach
     </div>
 
     <script>
