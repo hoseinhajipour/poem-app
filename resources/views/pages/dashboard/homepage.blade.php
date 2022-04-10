@@ -35,11 +35,8 @@
                 }
             }
         }
+        updateBottomNavIcon({{$currentIndex}});
 
-        var CurrentactiveIndex = 2;
-        if (localStorage.getItem("activeIndex")) {
-            CurrentactiveIndex = parseInt(localStorage.getItem("activeIndex"));
-        }
         swiper = new Swiper(".mySwiper", {
             initialSlide: {{$currentIndex}},
             history: {
