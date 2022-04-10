@@ -28,9 +28,11 @@ class Play extends Component
         $this->tournament = Tournament::where("id", $current_tournament)
             ->with("quizzes")
             ->first();
-
         $this->questions = $this->tournament->quizzes;
+
+        $this->dispatchBrowserEvent('clear_history','');
     }
+
 
     public function render()
     {

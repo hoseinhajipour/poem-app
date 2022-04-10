@@ -2,6 +2,7 @@
 
 namespace App\Components\Pages\Tournament;
 
+use App\Models\CoinUseType;
 use App\Models\Quiz;
 use App\Models\Tournament;
 use App\Models\TournamentQuiz;
@@ -70,6 +71,13 @@ class ReadyForPlay extends Component
         }
 
         Session::put('current_tournament', $Tournament->id);
+
+
+        //
+        $CoinUseType = CoinUseType::where("name", 'new_tournament')->first();
+        $user = auth()->user();
+        $user->wallet += $CoinUseType->value;
+        $user->save();
 
         redirect()->to('/tournament/play');
     }

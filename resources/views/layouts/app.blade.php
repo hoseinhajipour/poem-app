@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ config('app.name') }}</title>
+    <title>@yield('title') | {{ setting('site.title') }}</title>
 
     <livewire:styles/>
-    <script src="{!!url('/js/jquery.min.js')!!}"></script>
+    <script src="{!!url('/js/jquery.min.js')!!}" ></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ url('css/style.css?v=1.0') }}">
+    <link rel="stylesheet" href="{{ url('css/style.css?v=1.1') }}">
     <link
         rel="stylesheet"
         href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
     />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -25,13 +27,13 @@
 <main class="container" style="padding-top: 60px">
     {{ $slot }}
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-
-@include('layouts.parts.bottomNav')
 <livewire:scripts/>
 <script src="https://cdn.jsdelivr.net/gh/livewire/turbolinks@v0.1.x/dist/livewire-turbolinks.js"
         data-turbolinks-eval="false" data-turbo-eval="false"></script>
 <script src="{{ mix('js/app.js') }}"></script>
-
+<script src="{{ url('js/script.js') }}"></script>
 </body>
 </html>

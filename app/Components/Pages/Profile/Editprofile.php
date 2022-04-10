@@ -29,9 +29,12 @@ class Editprofile extends Component
 
     public function submit()
     {
+        $this->dispatchBrowserEvent('alert',
+            ['type' => 'success', 'message' => 'با موفقیت ذخیره شد']);
+
         $user = auth()->user();
         $user->name = $this->username;
         $user->save();
-        return redirect()->to('/settings');
+        redirect()->to('/home');
     }
 }
