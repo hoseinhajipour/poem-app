@@ -17,3 +17,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 });
+
+var menu = ['fas fa-cog', 'fas fa-trophy', 'fas fa-home', 'fas fa-user-friends', 'fas fa-shopping-bag'];
+var swiper = new Swiper('.swiper-container', {
+    initialSlide: 2,
+    spaceBetween: 30,
+    hashNavigation: {
+        watchState: true,
+    },
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        renderBullet: function (index, className) {
+            var row = '<span class="' + className + '">';
+            row += '<span class="' + menu[index] + '"></span>';
+            row += '</span>';
+
+            return row;
+        },
+    },
+});

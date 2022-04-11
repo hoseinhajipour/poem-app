@@ -35,6 +35,6 @@ class Editprofile extends Component
         $user = auth()->user();
         $user->name = $this->username;
         $user->save();
-        redirect()->to('/home');
+        redirect()->to('/home#slide1');
     }
 }

@@ -1,63 +1,25 @@
-<div class="swiper mySwiper">
+<!-- Swiper -->
+<div class="swiper swiper-container ">
     <div class="swiper-wrapper">
-        <div data-history="0" class="swiper-slide">
+        <div class="swiper-slide" data-hash="slide1">
             <livewire:pages.dashboard.settings/>
         </div>
-        <div data-history="1" class="swiper-slide">
+        <div class="swiper-slide" data-hash="slide2">
             <livewire:pages.dashboard.leaderboard/>
         </div>
-        <div data-history="2" class="swiper-slide">
+        <div class="swiper-slide" data-hash="slide3">
             <livewire:pages.dashboard.index/>
         </div>
-        <div data-history="3" class="swiper-slide">
+        <div class="swiper-slide" data-hash="slide4">
             <livewire:pages.dashboard.friends/>
         </div>
-        <div data-history="4" class="swiper-slide">
+        <div class="swiper-slide" data-hash="slide5">
             <livewire:pages.dashboard.shop/>
         </div>
     </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination custom-pagination"></div>
+
 </div>
 
-@yield('modal')
-@include('pages.dashboard.part.bottomNav')
-<script>
-    var swiper;
-    $(document).ready(function () {
-        function updateBottomNavIcon(index) {
-            var icon = document.getElementsByClassName("icon");
-            var tab = document.getElementsByClassName("tab");
-            for (var i = 0; i < icon.length; i++) {
-                for (i = 0; i < tab.length; i++) {
-                    tab[i].classList.remove("active");
-                    if (i === index) {
-                        tab[i].classList.toggle("active");
-                    }
-                }
-            }
-        }
-        updateBottomNavIcon({{$currentIndex}});
 
-        swiper = new Swiper(".mySwiper", {
-            initialSlide: {{$currentIndex}},
-            history: {
-                replaceState: true,
-                key: 'home'
-            },
-        });
-
-        swiper.on('slideChange', function () {
-            updateBottomNavIcon(swiper.activeIndex);
-        });
-
-        $(window).on('hashchange', function() {
-
-        });
-        $(window).bind('popstate', function(event) {
-            let indexx =parseInt(window.location.pathname.replace("/home/", ""));
-            updateBottomNavIcon(indexx);
-            swiper.slideTo(indexx);
-            console.log(indexx);
-        });
-    });
-
-</script>
