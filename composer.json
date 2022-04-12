@@ -6,15 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
         "bastinald/laravel-livewire-ui": "^3.1",
+        "econea/nusoap": "^0.9.11",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "tcg/voyager": "^1.5",
-        "twbs/bootstrap-icons": "^1.8",
-      "ext-json": "*"
+        "twbs/bootstrap-icons": "^1.8"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
