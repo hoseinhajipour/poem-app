@@ -19,7 +19,10 @@ class QuizzManagment extends Component
 
     public function render()
     {
-        $this->quzzies = Quiz::where("author_id", auth()->user()->id)->get();
+        $this->quzzies = Quiz::where("author_id", auth()
+            ->user()->id)
+            ->latest()
+            ->get();
         return view('pages.profile.quizz-managment');
     }
 }

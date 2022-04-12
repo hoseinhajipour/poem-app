@@ -5,10 +5,10 @@
     <div class="row">
         @foreach($quzzies as $quiz)
             <div class="col-12">
-                <button class="btn3d btn btn-default form-control">
+                <a href="/quiz/{{$quiz->id}}" class="btn3d btn btn-default form-control">
                     <p>{{$quiz->description}}</p>
                     <span>{{$quiz->status}}</span>
-                </button>
+                </a>
             </div>
         @endforeach
     </div>
