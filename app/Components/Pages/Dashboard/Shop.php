@@ -24,7 +24,9 @@ class Shop extends Component
         $this->Packages = Package::all();
         return view('pages.dashboard.shop');
     }
-    public function Buy($package_id){
+
+    public function Buy($package_id)
+    {
 
         $Package = Package::where('id', $package_id)->first();
         $user = auth()->user();
@@ -66,9 +68,9 @@ class Shop extends Component
             } else {
                 $result['url'] = 'https://www.zarinpal.com/pg/StartPay/' . $result['Authority'];
             }
-            return $this->redirect($result);
-        } else {
-            return $this->redirect($result);
+
+
+            return $this->redirect($result['url']);
         }
     }
 }

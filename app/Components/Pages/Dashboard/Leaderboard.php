@@ -19,7 +19,9 @@ class Leaderboard extends Component
 
     public function render()
     {
-        $this->users = User::all();
+        $this->users = User::where("id", "!=", 2)
+            ->orderby('score', 'desc')
+            ->get();
         return view('pages.dashboard.leaderboard');
     }
 }
