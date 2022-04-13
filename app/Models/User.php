@@ -5,15 +5,13 @@ namespace App\Models;
 use Faker\Generator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Musonza\Chat\Traits\Messageable;
 
 class User extends \TCG\Voyager\Models\User
 {
     use HasFactory, Notifiable;
-    use Messageable;
+
 
     protected $guarded = [];
     protected $hidden = ['password', 'remember_token'];
@@ -43,16 +41,21 @@ class User extends \TCG\Voyager\Models\User
         ];
     }
 
-    public function following() {
+    public function following()
+    {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
     }
 
     // users that follow this user
-    public function followers() {
+    public function followers()
+    {
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
     }
 
-    public function IsFollow($id){
 
+    public function messages()
+    {
+        return $this->hasMany(message::class, 'to');
     }
+
 }

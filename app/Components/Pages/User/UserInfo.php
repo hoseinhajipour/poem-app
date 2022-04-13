@@ -35,7 +35,7 @@ class UserInfo extends Component
     {
         if (auth()->user()->following()->find($this->user->id)) {
             auth()->user()->following()->detach($this->user);
-            $this->followStatus =  "دنبال کردن";
+            $this->followStatus = "دنبال کردن";
         } else {
             auth()->user()->following()->attach($this->user);
             $this->followStatus = "دنبال نکردن";
@@ -45,5 +45,10 @@ class UserInfo extends Component
     public function getAllFollowers()
     {
         $a_followers = $this->user->followers()->get();
+    }
+
+    public function GoChatPage()
+    {
+        $this->redirect('/chat/' . $this->user->id);
     }
 }

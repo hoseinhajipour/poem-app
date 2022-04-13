@@ -14,7 +14,6 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "musonza/chat": "^5.0",
         "tcg/voyager": "^1.5",
         "twbs/bootstrap-icons": "^1.8"
     },

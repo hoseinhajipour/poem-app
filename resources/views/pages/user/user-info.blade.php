@@ -7,5 +7,7 @@
     </div>
 
     <button class="btn btn-primary form-control" wire:click="followUnfollow()">{{$followStatus}}</button>
+
+    <button class="btn btn-primary form-control" wire:click="GoChatPage()">چت</button>
 </div>
 

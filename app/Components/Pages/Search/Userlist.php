@@ -24,6 +24,8 @@ class Userlist extends Component
     public function render()
     {
         $this->users = User::where("name", "LIKE", "%$this->username%")
+            ->where("id", "!=", 2)
+            ->where("id", "!=", auth()->user()->id)
             ->orderby('score', 'desc')
             ->get();
         return view('pages.search.userlist');
