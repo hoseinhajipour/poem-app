@@ -9,6 +9,7 @@ use Livewire\Component;
 class UserInfo extends Component
 {
     public $user;
+    public $followStatus = "دنبال کردن";
 
     public function route()
     {
@@ -20,10 +21,29 @@ class UserInfo extends Component
     public function mount($id)
     {
         $this->user = User::find($id);
+        if (auth()->user()->following()->find($this->user->id)) {
+            $this->followStatus = "دنبال نکردن";
+        }
     }
 
     public function render()
     {
         return view('pages.user.user-info');
+    }
+
+    public function followUnfollow()
+    {
+        if (auth()->user()->following()->find($this->user->id)) {
+            auth()->user()->following()->detach($this->user);
+            $this->followStatus =  "دنبال کردن";
+        } else {
+            auth()->user()->following()->attach($this->user);
+            $this->followStatus = "دنبال نکردن";
+        }
+    }
+
+    public function getAllFollowers()
+    {
+        $a_followers = $this->user->followers()->get();
     }
 }
