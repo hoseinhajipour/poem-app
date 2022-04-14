@@ -2,7 +2,9 @@
 
 namespace App\Components\Pages\Dashboard;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Homepage extends Component
@@ -28,6 +30,5 @@ class Homepage extends Component
     {
         return view('pages.dashboard.homepage');
     }
-
 
 }

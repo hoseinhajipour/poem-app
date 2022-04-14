@@ -3,8 +3,22 @@
         <div class="col-12">
 
             <div class="alert alert-info text-center">{{$current_question_index+1}} /{{ count($questions) }}</div>
-            <div class="btn3d btn btn-white form-control">
-                {{$current_question->description}}
+            <div class="btn btn-white form-control" align="center">
+                @isset($current_question->image)
+                    <img src="{{ Voyager::image($current_question->image) }}" width="100%"/>
+                @endisset
+                @if(isset(json_decode($current_question->video)[0]))
+                    <video controls autoplay>
+                        <source src="/storage/{{json_decode($current_question->video)[0]->download_link}}" type="video/mp4">
+                    </video>
+                @endisset
+
+                    @if(isset(json_decode($current_question->music)[0]))
+                    <audio controls autoplay>
+                        <source src="/storage/{{json_decode($current_question->music)[0]->download_link}}" type="audio/mpeg">
+                    </audio>
+                @endisset
+                <p>{{$current_question->description}}</p>
             </div>
 
             <div class="progress">

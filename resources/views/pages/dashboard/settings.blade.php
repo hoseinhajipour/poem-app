@@ -42,7 +42,8 @@
     </div>
 
 
-    <div class="modal fade" id="logoutAlert" tabindex="-1" aria-labelledby="logoutAlert" aria-hidden="true">
+    <div class="modal fade" id="logoutAlert" tabindex="-1" data-bs-backdrop="false"
+         aria-labelledby="logoutAlert" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -55,11 +56,12 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">نه</button>
                     <button type="button"
                             wire:click="logout()"
-                            class="btn btn-primary" data-bs-dismiss="modal">آره</button>
+                            class="btn btn-primary" data-bs-dismiss="modal">آره
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-
 </div>
+

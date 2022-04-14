@@ -2,6 +2,7 @@
 
 <div class="d-grid col-lg-4 mx-auto" dir="rtl">
     <div class="card">
+
         <form wire:submit.prevent="login" class="card-body text-center">
             <div class="mb-3">
                 <label for="email" class="form-label">ایمیل</label>

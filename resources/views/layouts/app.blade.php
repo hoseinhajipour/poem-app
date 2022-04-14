@@ -24,6 +24,7 @@
 <main class="container" style="padding-top: 60px">
     {{ $slot }}
 </main>
+<div id="modal_part"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
