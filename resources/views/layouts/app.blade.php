@@ -9,7 +9,7 @@
     <title>@yield('title') | {{ setting('site.title') }}</title>
 
     <livewire:styles/>
-    <script src="{!!url('/js/jquery.min.js')!!}" ></script>
+    <script src="{!!url('/js/jquery.min.js')!!}"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ url('css/style.css?v=1.2') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">

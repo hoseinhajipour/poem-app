@@ -62,7 +62,7 @@
         });
 
         function appendRewrad() {
-            @this.Rewardincrement()
+        @this.Rewardincrement()
         }
     </script>
     @if (session()->has('alert'))

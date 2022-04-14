@@ -2,9 +2,7 @@
 
 namespace App\Components\Pages\Dashboard;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Homepage extends Component
@@ -29,6 +27,16 @@ class Homepage extends Component
     public function render()
     {
         return view('pages.dashboard.homepage');
+    }
+
+    public function SaveToken($token)
+    {
+        $user = auth()->user();
+        $user->token = $token;
+        $user->save();
+
+        $this->dispatchBrowserEvent('updateSwiper');
+
     }
 
 }
