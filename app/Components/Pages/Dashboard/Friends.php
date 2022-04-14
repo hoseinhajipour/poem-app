@@ -2,13 +2,14 @@
 
 namespace App\Components\Pages\Dashboard;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class Friends extends Component
 {
     public $users = [];
+    public $followers = [];
+    public $following = [];
 
     public function route()
     {
@@ -19,7 +20,8 @@ class Friends extends Component
 
     public function render()
     {
-        $this->users = User::all();
+        $this->followers = auth()->user()->followers()->get();
+        $this->following = auth()->user()->following()->get();
         return view('pages.dashboard.friends');
     }
 }
