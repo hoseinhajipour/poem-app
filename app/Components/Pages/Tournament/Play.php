@@ -86,15 +86,17 @@ class Play extends Component
 
     public function LikeQuest()
     {
-        $this->questions[$this->current_question_index]->like++;
-
+        $this->questions[$this->current_question_index]->Quiz->like++;
+        $this->questions[$this->current_question_index]->Quiz->save();
         $this->dispatchBrowserEvent('alert',
             ['type' => 'success', 'message' => 'نظر شما با موفقیت ثبت شد']);
     }
 
     public function DislikeQuest()
     {
-        $this->questions[$this->current_question_index]->dislike++;
+        $this->questions[$this->current_question_index]->Quiz->dislike++;
+
+        $this->questions[$this->current_question_index]->Quiz->save();
         $this->dispatchBrowserEvent('alert',
             ['type' => 'success', 'message' => 'نظر شما با موفقیت ثبت شد']);
     }

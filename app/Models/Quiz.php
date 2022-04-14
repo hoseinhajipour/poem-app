@@ -14,5 +14,5 @@ class Quiz extends Model
         , 'answer02', 'answer03', 'answer04'
         , 'true_answer', 'music', 'image'
         , 'video', 'author_id', 'type'
-        , 'status', 'category_id'];
+        , 'status', 'category_id' , 'like' , 'dislike'];
 }
