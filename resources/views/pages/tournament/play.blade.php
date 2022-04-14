@@ -19,9 +19,9 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div wire:ignore.self class="row">
         <div class="col-6">
-            <button onclick="SendAnswer(1)"
+            <button wire:ignore.self onclick="SendAnswer(1)"
                     @if($current_question->true_answer ==1)
                     data-true="1"
                     @endif
@@ -40,7 +40,7 @@
             </button>
         </div>
         <div class="col-6">
-            <button onclick="SendAnswer(2)"
+            <button wire:ignore.self onclick="SendAnswer(2)"
                     @if($current_question->true_answer ==2)
                     data-true="2"
                     @endif
@@ -56,7 +56,8 @@
             </button>
         </div>
         <div class="col-6">
-            <button onclick="SendAnswer(3)"
+            <button wire:ignore.self
+                    onclick="SendAnswer(3)"
                     @if($current_question->true_answer ==3)
                     data-true="3"
                     @endif
@@ -72,7 +73,8 @@
             </button>
         </div>
         <div class="col-6">
-            <button onclick="SendAnswer(4)"
+            <button wire:ignore.self
+                    onclick="SendAnswer(4)"
                     @if($current_question->true_answer ==4)
                     data-true="4"
                     @endif
@@ -93,13 +95,43 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <button onclick="ChancePercent()" class="btn btn3d btn-primary">Chance Percent</button>
+                    <button onclick="ChancePercent()"
+                            @if(auth()->user()->wallet<60)
+                            disabled
+                            @endif
+                            class="btn btn3d btn-success form-control">
+                        <i class="fas fa-percent"></i>
+                        <div>
+                            <i class="fas fa-coins"></i>
+                            <span>60</span>
+                        </div>
+                    </button>
                 </div>
                 <div class="col-4">
-                    <button onclick="RemoveTwoAnswer()" class="btn btn3d btn-primary">Remove Two answer</button>
+                    <button onclick="RemoveTwoAnswer()"
+                            @if(auth()->user()->wallet<40)
+                            disabled
+                            @endif
+                            class="btn btn3d btn-success form-control">
+                        <i class="fas fa-bomb"></i>
+                        <div>
+                            <i class="fas fa-coins"></i>
+                            <span>40</span>
+                        </div>
+                    </button>
                 </div>
                 <div class="col-4">
-                    <button onclick="EnableTwoChanceClick()" class="btn btn3d btn-primary">Two Chance</button>
+                    <button onclick="EnableTwoChanceClick()"
+                            @if(auth()->user()->wallet<60)
+                            disabled
+                            @endif
+                            class="btn btn3d btn-success form-control">
+                        <i>2x</i>
+                        <div>
+                            <i class="fas fa-coins"></i>
+                            <span>40</span>
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -152,7 +184,6 @@
     var TwochanceClick = 0;
 
     function SendAnswer(id) {
-        console.log(TwochanceClick);
         if (TwochanceClick == 0) {
             $(".SelectAnswer").each(function (child) {
                 $(this).prop("disabled", true);
@@ -191,6 +222,17 @@
 
     }
 
+    function StartTimer() {
+        $(".timer_progress").css("width", "100%");
+        setTimeout(function () {
+            $(".timer_progress").animate({
+                width: "0%"
+            }, 20000, "linear", function () {
+                $('#NextQuest').modal('show');
+            });
+        }, 1000);
+    }
+
     $(document).ready(function () {
         StartTimer();
         $(".ContinueGame").click(function () {
@@ -220,6 +262,7 @@
         RemoveAnswers.forEach((element) => {
             $(".SendAnswer0" + element).addClass("d-none");
         });
+        @this.UseHeleper('helepr_RemoveTwoAnswer')
     }
 
     function ChancePercent() {
@@ -237,22 +280,14 @@
                 $(this).find(".chance_progrecss").css("width", randomnumber + "%");
             }
         });
+    @this.UseHeleper('helepr_ChancePercent')
     }
 
     function EnableTwoChanceClick() {
         TwochanceClick = 1;
+    @this.UseHeleper('helepr_EnableTwoChance')
     }
 
-    function StartTimer() {
-        $(".timer_progress").css("width", "100%");
-        setTimeout(function () {
-            $(".timer_progress").animate({
-                width: "0%"
-            }, 20000, "linear", function () {
-                $('#NextQuest').modal('show');
-            });
-        }, 1000);
-    }
 
     function ResetAllButton() {
         $(".SelectAnswer").each(function (child) {

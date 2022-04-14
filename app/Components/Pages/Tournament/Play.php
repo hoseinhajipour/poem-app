@@ -2,6 +2,7 @@
 
 namespace App\Components\Pages\Tournament;
 
+use App\Models\CoinUseType;
 use App\Models\Tournament;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -15,6 +16,9 @@ class Play extends Component
     public $current_question_index = 0;
     public $true_answer = 0;
 
+    protected $listeners = [
+        'helepr_RemoveTwoAnswer'
+    ];
     public function route()
     {
         return Route::get('/tournament/play')
@@ -32,7 +36,6 @@ class Play extends Component
 
         $this->dispatchBrowserEvent('clear_history', '');
     }
-
 
     public function render()
     {
@@ -59,7 +62,6 @@ class Play extends Component
 
     public function checkWinner()
     {
-
         if ($this->tournament->first_user_id == auth()->user()->id) {
             $this->tournament->first_user_true_answer = $this->true_answer;
         } else {
@@ -83,7 +85,6 @@ class Play extends Component
         redirect()->to('/home');
     }
 
-
     public function LikeQuest()
     {
         $this->questions[$this->current_question_index]->Quiz->like++;
@@ -99,5 +100,24 @@ class Play extends Component
         $this->questions[$this->current_question_index]->Quiz->save();
         $this->dispatchBrowserEvent('alert',
             ['type' => 'success', 'message' => 'نظر شما با موفقیت ثبت شد']);
+    }
+
+    public function UseHeleper($name)
+    {
+        $CoinUseType = CoinUseType::where("name", $name)->first();
+        $user = auth()->user();
+        if ($user->wallet >= $CoinUseType->value) {
+            $user->wallet += $CoinUseType->value;
+            $user->save();
+            $this->emitTo('util.header', '$refresh');
+        } else {
+            $this->dispatchBrowserEvent('alert',
+                ['type' => 'error', 'message' => 'موجودی ناکافی']);
+        }
+
+    }
+
+    public function helepr_RemoveTwoAnswer(){
+        $this->UseHeleper('helepr_RemoveTwoAnswer');
     }
 }

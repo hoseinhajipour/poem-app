@@ -19,7 +19,7 @@
 </head>
 <body>
 
-@include('layouts.parts.header')
+<livewire:util.header/>
 
 <main class="container" style="padding-top: 60px">
     {{ $slot }}
