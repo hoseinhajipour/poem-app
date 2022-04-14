@@ -30,7 +30,7 @@ class Play extends Component
             ->first();
         $this->questions = $this->tournament->quizzes;
 
-        $this->dispatchBrowserEvent('clear_history','');
+        $this->dispatchBrowserEvent('clear_history', '');
     }
 
 
@@ -42,19 +42,22 @@ class Play extends Component
 
     public function SelectAnswer($Answer_id)
     {
-
         if ($this->current_question->true_answer == $Answer_id) {
             $this->true_answer++;
         }
+        $this->dispatchBrowserEvent('ShowNextQuest', null);
+    }
+
+    public function ContinueGame()
+    {
         $this->current_question_index++;
         if ($this->current_question_index >= count($this->questions)) {
             $this->current_question_index = count($this->questions) - 1;
             $this->checkWinner();
-
         }
     }
 
-   public function checkWinner()
+    public function checkWinner()
     {
 
         if ($this->tournament->first_user_id == auth()->user()->id) {
@@ -78,5 +81,21 @@ class Play extends Component
         $this->tournament->save();
 
         redirect()->to('/home');
+    }
+
+
+    public function LikeQuest()
+    {
+        $this->questions[$this->current_question_index]->like++;
+
+        $this->dispatchBrowserEvent('alert',
+            ['type' => 'success', 'message' => 'نظر شما با موفقیت ثبت شد']);
+    }
+
+    public function DislikeQuest()
+    {
+        $this->questions[$this->current_question_index]->dislike++;
+        $this->dispatchBrowserEvent('alert',
+            ['type' => 'success', 'message' => 'نظر شما با موفقیت ثبت شد']);
     }
 }
