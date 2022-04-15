@@ -8,11 +8,17 @@ window.addEventListener('alert', event => {
 
 window.addEventListener('updateSwiper', event => {
     GenerateSwiper();
-    console.log("swiper.update");
 });
 window.addEventListener('TwochanceClickUpdate', event => {
     TwochanceClick = 1;
-    console.log(TwochanceClick);
+});
+window.addEventListener('start_timer_progress', event => {
+    StartTimer();
+    console.log("start_timer_progress");
+});
+
+window.addEventListener('Stop_timer_progress', event => {
+    $(".timer_progress").stop();
 });
 
 

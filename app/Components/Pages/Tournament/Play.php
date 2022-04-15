@@ -48,6 +48,8 @@ class Play extends Component
             ->with("quizzes")
             ->first();
         $this->questions = $this->tournament->quizzes;
+
+        $this->dispatchBrowserEvent('start_timer_progress', null);
     }
 
     public function render()
@@ -61,6 +63,7 @@ class Play extends Component
         if ($this->current_question->true_answer == $Answer_id) {
             $this->true_answer++;
         }
+        $this->dispatchBrowserEvent('Stop_timer_progress', null);
         $this->dispatchBrowserEvent('ShowNextQuest', null);
     }
 
@@ -77,8 +80,11 @@ class Play extends Component
 
         $this->current_question_index++;
         if ($this->current_question_index >= count($this->questions)) {
+            $this->dispatchBrowserEvent('Stop_timer_progress', null);
             $this->current_question_index = count($this->questions) - 1;
             $this->checkWinner();
+        }else{
+            $this->dispatchBrowserEvent('start_timer_progress', null);
         }
     }
 
