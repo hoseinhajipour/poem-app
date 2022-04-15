@@ -89,6 +89,7 @@
                     <div wire:loading.remove class="row">
                         <div class="col-6">
                             <button wire:click="GoSearchUserPage()"
+                                    data-turbolinks="false"
                                     class="btn3d btn btn-magick form-control"
                                     data-bs-dismiss="modal"
                             >جستجو نام

@@ -9,13 +9,15 @@
                 @endisset
                 @if(isset(json_decode($current_question->video)[0]))
                     <video controls autoplay>
-                        <source src="/storage/{{json_decode($current_question->video)[0]->download_link}}" type="video/mp4">
+                        <source src="/storage/{{json_decode($current_question->video)[0]->download_link}}"
+                                type="video/mp4">
                     </video>
                 @endisset
 
-                    @if(isset(json_decode($current_question->music)[0]))
+                @if(isset(json_decode($current_question->music)[0]))
                     <audio controls autoplay>
-                        <source src="/storage/{{json_decode($current_question->music)[0]->download_link}}" type="audio/mpeg">
+                        <source src="/storage/{{json_decode($current_question->music)[0]->download_link}}"
+                                type="audio/mpeg">
                     </audio>
                 @endisset
                 <p>{{$current_question->description}}</p>
@@ -33,14 +35,16 @@
             </div>
         </div>
     </div>
-    <div wire:ignore.self class="row">
+    <div class="row">
         <div class="col-6">
-            <button wire:ignore.self onclick="SendAnswer(1)"
+            <button onclick="SendAnswer(1)"
                     @if($current_question->true_answer ==1)
                     data-true="1"
                     @endif
                     class="btn3d btn btn-default form-control SendAnswer01 SelectAnswer">
-                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 d-none">
+                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700
+                @if($showPrecents==false) d-none @endif
+                    ">
                     <div
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
@@ -54,12 +58,12 @@
             </button>
         </div>
         <div class="col-6">
-            <button wire:ignore.self onclick="SendAnswer(2)"
+            <button onclick="SendAnswer(2)"
                     @if($current_question->true_answer ==2)
                     data-true="2"
                     @endif
                     class="btn3d btn btn-default form-control SendAnswer02 SelectAnswer">
-                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 d-none">
+                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
                     <div
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
@@ -70,13 +74,13 @@
             </button>
         </div>
         <div class="col-6">
-            <button wire:ignore.self
-                    onclick="SendAnswer(3)"
-                    @if($current_question->true_answer ==3)
-                    data-true="3"
-                    @endif
-                    class="btn3d btn btn-default form-control SendAnswer03 SelectAnswer">
-                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 d-none">
+            <button
+                onclick="SendAnswer(3)"
+                @if($current_question->true_answer ==3)
+                data-true="3"
+                @endif
+                class="btn3d btn btn-default form-control SendAnswer03 SelectAnswer">
+                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
                     <div
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
@@ -87,13 +91,13 @@
             </button>
         </div>
         <div class="col-6">
-            <button wire:ignore.self
-                    onclick="SendAnswer(4)"
-                    @if($current_question->true_answer ==4)
-                    data-true="4"
-                    @endif
-                    class="btn3d btn btn-default form-control SendAnswer04 SelectAnswer">
-                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 d-none">
+            <button
+                onclick="SendAnswer(4)"
+                @if($current_question->true_answer ==4)
+                data-true="4"
+                @endif
+                class="btn3d btn btn-default form-control SendAnswer04 SelectAnswer">
+                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
                     <div
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
@@ -113,7 +117,10 @@
                             @if(auth()->user()->wallet<60)
                             disabled
                             @endif
-                            class="btn btn3d btn-success form-control">
+                            @if($ChancePercent)
+                            disabled
+                            @endif
+                            class="btn ChancePercent btn3d btn-success form-control">
                         <i class="fas fa-percent"></i>
                         <div>
                             <i class="fas fa-coins"></i>
@@ -126,7 +133,10 @@
                             @if(auth()->user()->wallet<40)
                             disabled
                             @endif
-                            class="btn btn3d btn-success form-control">
+                            @if($RemoveTwoAnswer)
+                            disabled
+                            @endif
+                            class="RemoveTwoAnswer btn btn3d btn-success form-control">
                         <i class="fas fa-bomb"></i>
                         <div>
                             <i class="fas fa-coins"></i>
@@ -139,7 +149,10 @@
                             @if(auth()->user()->wallet<60)
                             disabled
                             @endif
-                            class="btn btn3d btn-success form-control">
+                            @if($EnableTwoChanceClick)
+                            disabled
+                            @endif
+                            class="EnableTwoChanceClick btn btn3d btn-success form-control">
                         <i>2x</i>
                         <div>
                             <i class="fas fa-coins"></i>
@@ -192,138 +205,144 @@
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    var TwochanceClick = 0;
 
-    function SendAnswer(id) {
-        if (TwochanceClick == 0) {
-            $(".SelectAnswer").each(function (child) {
-                $(this).prop("disabled", true);
-            });
-            if ($(".SendAnswer0" + id).attr("data-true")) {
-                $(".SendAnswer0" + id).removeClass('btn-default');
-                $(".SendAnswer0" + id).addClass('btn-success');
-            } else {
-                $(".SendAnswer0" + id).removeClass('btn-default');
-                $(".SendAnswer0" + id).addClass('btn-danger');
-            }
+    <script>
+        var TwochanceClick = {{$TwochanceClick}};
 
-            $(".timer_progress").stop();
-            setTimeout(function () {
-            @this.SelectAnswer(id)
-            }, 1000);
-        } else {
-            if ($(".SendAnswer0" + id).attr("data-true")) {
-                $(".SendAnswer0" + id).removeClass('btn-default');
-                $(".SendAnswer0" + id).addClass('btn-success');
-
+        function SendAnswer(id) {
+            if (TwochanceClick == 0) {
                 $(".SelectAnswer").each(function (child) {
                     $(this).prop("disabled", true);
                 });
+                if ($(".SendAnswer0" + id).attr("data-true")) {
+                    $(".SendAnswer0" + id).removeClass('btn-default');
+                    $(".SendAnswer0" + id).addClass('btn-success');
+                } else {
+                    $(".SendAnswer0" + id).removeClass('btn-default');
+                    $(".SendAnswer0" + id).addClass('btn-danger');
+                }
 
                 $(".timer_progress").stop();
                 setTimeout(function () {
                 @this.SelectAnswer(id)
                 }, 1000);
             } else {
-                $(".SendAnswer0" + id).removeClass('btn-default');
-                $(".SendAnswer0" + id).addClass('btn-danger');
+                if ($(".SendAnswer0" + id).attr("data-true")) {
+                    $(".SendAnswer0" + id).removeClass('btn-default');
+                    $(".SendAnswer0" + id).addClass('btn-success');
+
+                    $(".SelectAnswer").each(function (child) {
+                        $(this).prop("disabled", true);
+                    });
+
+                    $(".timer_progress").stop();
+                    setTimeout(function () {
+                    @this.SelectAnswer(id)
+                    }, 1000);
+                } else {
+                    $(".SendAnswer0" + id).removeClass('btn-default');
+                    $(".SendAnswer0" + id).addClass('btn-danger');
+                }
+                TwochanceClick--;
             }
-            TwochanceClick--;
+
         }
 
-    }
+        function StartTimer() {
+            $(".timer_progress").css("width", "100%");
+            setTimeout(function () {
+                $(".timer_progress").animate({
+                    width: "0%"
+                }, 20000, "linear", function () {
+                    $('#NextQuest').modal('show');
+                });
+            }, 1000);
+        }
 
-    function StartTimer() {
-        $(".timer_progress").css("width", "100%");
-        setTimeout(function () {
-            $(".timer_progress").animate({
-                width: "0%"
-            }, 20000, "linear", function () {
-                $('#NextQuest').modal('show');
-            });
-        }, 1000);
-    }
-
-    $(document).ready(function () {
-        StartTimer();
-        $(".ContinueGame").click(function () {
+        $(document).ready(function () {
             StartTimer();
+            $(".ContinueGame").click(function () {
+                StartTimer();
+            });
         });
-    });
 
-    function randomIndex(arr, excludeIndex) {
-        let indexes = Object.keys(arr); //get a list of indexes
-        indexes.splice(excludeIndex, 1); //remove the unwanted
-        return indexes[Math.floor(Math.random() * indexes.length)]; //pick a new index
-    }
+        function randomIndex(arr, excludeIndex) {
+            let indexes = Object.keys(arr); //get a list of indexes
+            indexes.splice(excludeIndex, 1); //remove the unwanted
+            return indexes[Math.floor(Math.random() * indexes.length)]; //pick a new index
+        }
 
-    function RemoveTwoAnswer() {
-        var true_answer = 1;
-        $(".SelectAnswer").each(function (child) {
-            if ($(this).attr("data-true")) {
-                true_answer = $(this).attr("data-true");
-            }
-        });
-        var RemoveAnswers = [1, 2, 3, 4];
-        RemoveAnswers.splice(true_answer - 1, 1);
-        maximum = 2;
-        minimum = 0;
-        var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-        RemoveAnswers.splice(randomnumber, 1);
-        RemoveAnswers.forEach((element) => {
-            $(".SendAnswer0" + element).addClass("d-none");
-        });
+        function RemoveTwoAnswer() {
+            var true_answer = 1;
+            $(".SelectAnswer").each(function (child) {
+                if ($(this).attr("data-true")) {
+                    true_answer = $(this).attr("data-true");
+                }
+            });
+            var RemoveAnswers = [1, 2, 3, 4];
+            RemoveAnswers.splice(true_answer - 1, 1);
+            maximum = 2;
+            minimum = 0;
+            var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+            RemoveAnswers.splice(randomnumber, 1);
+            RemoveAnswers.forEach((element) => {
+                $(".SendAnswer0" + element).addClass("d-none");
+            });
+            $('.RemoveTwoAnswer').prop("disabled", true);
         @this.UseHeleper('helepr_RemoveTwoAnswer')
-    }
 
-    function ChancePercent() {
-        $(".SelectAnswer").each(function (child) {
-            $(this).find(".chance_precent").removeClass("d-none");
-            if ($(this).attr("data-true")) {
-                maximum = 85;
-                minimum = 45;
-                var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-                $(this).find(".chance_progrecss").css("width", randomnumber + "%");
-            } else {
-                maximum = 50;
-                minimum = 0;
-                var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-                $(this).find(".chance_progrecss").css("width", randomnumber + "%");
-            }
-        });
-    @this.UseHeleper('helepr_ChancePercent')
-    }
+        }
 
-    function EnableTwoChanceClick() {
-        TwochanceClick = 1;
-    @this.UseHeleper('helepr_EnableTwoChance')
-    }
+        function ChancePercent() {
+            $(".SelectAnswer").each(function (child) {
+                if ($(this).attr("data-true")) {
+                    maximum = 85;
+                    minimum = 45;
+                    var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+                    $(this).find(".chance_progrecss").css("width", randomnumber + "%");
+                } else {
+                    maximum = 50;
+                    minimum = 0;
+                    var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+                    $(this).find(".chance_progrecss").css("width", randomnumber + "%");
+                }
+            });
+            $('.ChancePercent').prop("disabled", true);
+        @this.UseHeleper('helepr_ChancePercent')
+        }
+
+        function EnableTwoChanceClick() {
+            $('.EnableTwoChanceClick').prop("disabled", true);
+            TwochanceClick = 1;
+        @this.UseHeleper('helepr_EnableTwoChance')
+        }
 
 
-    function ResetAllButton() {
-        $(".SelectAnswer").each(function (child) {
-            $(this).find(".chance_precent").addClass("d-none");
-            if ($(this).hasClass('btn-success')) {
-                $(this).removeClass('btn-success');
-                $(this).addClass('btn-default');
-            }
-            if ($(this).hasClass('btn-danger')) {
-                $(this).removeClass('btn-danger');
-                $(this).addClass('btn-default');
-            }
-            if ($(this).hasClass('d-none')) {
-                $(this).removeClass('d-none');
-            }
-            $(this).prop("disabled", false);
-        });
-        TwochanceClick = 0;
-    }
+        function ResetAllButton() {
+            $(".SelectAnswer").each(function (child) {
+                $(this).find(".chance_precent").addClass("d-none");
+                if ($(this).hasClass('btn-success')) {
+                    $(this).removeClass('btn-success');
+                    $(this).addClass('btn-default');
+                }
+                if ($(this).hasClass('btn-danger')) {
+                    $(this).removeClass('btn-danger');
+                    $(this).addClass('btn-default');
+                }
+                if ($(this).hasClass('d-none')) {
+                    $(this).removeClass('d-none');
+                }
+                $(this).prop("disabled", false);
+            });
+            TwochanceClick = 0;
+        }
 
-    window.addEventListener('ShowNextQuest', event => {
-        $('#NextQuest').modal('show');
-        ResetAllButton();
-    })
-</script>
+        window.addEventListener('ShowNextQuest', event => {
+            $('#NextQuest').modal('show');
+            ResetAllButton();
+        })
+    </script>
+</div>
+
+

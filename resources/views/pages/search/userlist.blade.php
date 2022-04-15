@@ -36,6 +36,7 @@
                         <div class="col-6">
                             <button
                                 wire:click="showCurrentUserProfile()"
+                                data-turbolinks="false"
                                 data-bs-dismiss="modal"
                                 class="btn3d btn btn-magick form-control"
                             >پروفایل

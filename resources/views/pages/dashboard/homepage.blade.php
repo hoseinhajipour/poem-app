@@ -1,19 +1,19 @@
 <div>
     <div class="swiper swiper-container ">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" data-hash="slide1">
+            <div class="swiper-slide" data-history="1" data-hash="slide1">
                 <livewire:pages.dashboard.settings/>
             </div>
-            <div class="swiper-slide" data-hash="slide2">
+            <div class="swiper-slide" data-history="1" data-hash="slide2">
                 <livewire:pages.dashboard.leaderboard/>
             </div>
-            <div class="swiper-slide" data-hash="slide3">
+            <div class="swiper-slide" data-history="2" data-hash="slide3">
                 <livewire:pages.dashboard.index/>
             </div>
-            <div class="swiper-slide" data-hash="slide4">
+            <div class="swiper-slide" data-history="3" data-hash="slide4">
                 <livewire:pages.dashboard.friends/>
             </div>
-            <div class="swiper-slide" data-hash="slide5">
+            <div class="swiper-slide" data-history="4" data-hash="slide5">
                 <livewire:pages.dashboard.shop/>
             </div>
         </div>
@@ -31,7 +31,11 @@
             }
 
         });
-
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
         function SaveFireBaseToken(token) {
         @this.SaveToken(token);
             console.log(token);

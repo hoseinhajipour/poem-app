@@ -16,9 +16,16 @@ class Play extends Component
     public $current_question_index = 0;
     public $true_answer = 0;
 
+    public $ChancePercent = false;
+    public $RemoveTwoAnswer = false;
+    public $EnableTwoChanceClick = false;
+
+    public $showPrecents = false;
+    public $TwochanceClick = 0;
     protected $listeners = [
         'helepr_RemoveTwoAnswer'
     ];
+
     public function route()
     {
         return Route::get('/tournament/play')
@@ -53,6 +60,11 @@ class Play extends Component
 
     public function ContinueGame()
     {
+        //reset
+        $this->showPrecents = false;
+        $this->TwochanceClick=0;
+        //end-reset
+
         $this->current_question_index++;
         if ($this->current_question_index >= count($this->questions)) {
             $this->current_question_index = count($this->questions) - 1;
@@ -104,6 +116,16 @@ class Play extends Component
 
     public function UseHeleper($name)
     {
+        if ($name == "helepr_RemoveTwoAnswer") {
+            $this->RemoveTwoAnswer = true;
+        }
+        if ($name == "helepr_ChancePercent") {
+            $this->ChancePercent = true;
+            $this->showPrecents = true;
+        }
+        if ($name == "helepr_EnableTwoChance") {
+            $this->EnableTwoChanceClick = true;
+        }
         $CoinUseType = CoinUseType::where("name", $name)->first();
         $user = auth()->user();
         if ($user->wallet >= $CoinUseType->value) {
@@ -117,7 +139,8 @@ class Play extends Component
 
     }
 
-    public function helepr_RemoveTwoAnswer(){
+    public function helepr_RemoveTwoAnswer()
+    {
         $this->UseHeleper('helepr_RemoveTwoAnswer');
     }
 }

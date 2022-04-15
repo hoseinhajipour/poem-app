@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 
-function GenerateSwiper(){
+function GenerateSwiper() {
     var menu = ['fas fa-cog', 'fas fa-trophy', 'fas fa-home', 'fas fa-user-friends', 'fas fa-shopping-bag'];
     var swiper = new Swiper('.swiper-container', {
         initialSlide: 2,
@@ -33,6 +33,7 @@ function GenerateSwiper(){
         hashNavigation: {
             watchState: true,
         },
+
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
@@ -47,11 +48,36 @@ function GenerateSwiper(){
     });
 }
 
+function appendHomeUrl() {
+    const state = {}
+    const url = '/home'
+    history.pushState(state, '', url)
+}
 
+function RedirectWithCurrentSatet(url_to, current) {
+    history.pushState(history.state, current, current);
+
+    Turbolinks.visit(url_to);
+}
+
+$(document).ready(function () {
+    $(".appendHomeUrl").click(event => {
+        appendHomeUrl();
+    });
+});
+
+
+document.addEventListener("turbolinks:before-cache", function () {
+    console.log("before-cache");
+});
+document.addEventListener("turbolinks:load", () => {
+    console.log("turbolinks:load");
+});
 function getOS() {
+
     var uA = navigator.userAgent || navigator.vendor || window.opera;
     if ((/iPad|iPhone|iPod/.test(uA) && !window.MSStream) || (uA.includes('Mac') && 'ontouchend' in document)) return 'iOS';
 
     var i, os = ['Windows', 'Android', 'Unix', 'Mac', 'Linux', 'BlackBerry'];
-    for (i = 0; i < os.length; i++) if (new RegExp(os[i],'i').test(uA)) return os[i];
+    for (i = 0; i < os.length; i++) if (new RegExp(os[i], 'i').test(uA)) return os[i];
 }
