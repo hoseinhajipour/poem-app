@@ -250,3 +250,23 @@ footer .tab.active {
     -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.45);
     box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 45%);
 }
+
+.package_price {
+    font-size: 10px;
+    background-color: #8e00ad;
+    color: white;
+    padding: 1px;
+    border-radius: 4px;
+    transform: scale(1.2);
+}
+
+.package_icon {
+    color: goldenrod;
+    font-size: 31px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+.package_title {
+    font-size: 10px;
+}

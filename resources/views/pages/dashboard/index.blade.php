@@ -83,8 +83,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div wire:loading align="center">
-                        loading...
+                    <div wire:loading align="center" class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
                     <div wire:loading.remove class="row">
                         @if(auth()->user()->wallet>100)

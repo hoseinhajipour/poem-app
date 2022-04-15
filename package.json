@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.8.1",
+        "mp3-cutter": "^1.0.6",
         "swiper": "^8.0.7",
         "turbolinks": "^5.2.0"
     }
