@@ -22,9 +22,12 @@ class Play extends Component
 
     public $showPrecents = false;
     public $TwochanceClick = 0;
-    protected $listeners = [
-        'helepr_RemoveTwoAnswer'
-    ];
+
+    public $hide_answer01 = false;
+    public $hide_answer02 = false;
+    public $hide_answer03 = false;
+    public $hide_answer04 = false;
+    public $precents = [];
 
     public function route()
     {
@@ -35,13 +38,16 @@ class Play extends Component
 
     public function mount()
     {
+        $this->precents[0] = 0;
+        $this->precents[1] = 0;
+        $this->precents[2] = 0;
+        $this->precents[3] = 0;
+
         $current_tournament = Session::get('current_tournament');
         $this->tournament = Tournament::where("id", $current_tournament)
             ->with("quizzes")
             ->first();
         $this->questions = $this->tournament->quizzes;
-
-        $this->dispatchBrowserEvent('clear_history', '');
     }
 
     public function render()
@@ -62,8 +68,12 @@ class Play extends Component
     {
         //reset
         $this->showPrecents = false;
-        $this->TwochanceClick=0;
-        //end-reset
+        $this->TwochanceClick = 0;
+        $this->hide_answer01 = false;
+        $this->hide_answer02 = false;
+        $this->hide_answer03 = false;
+        $this->hide_answer04 = false;
+        //end reset
 
         $this->current_question_index++;
         if ($this->current_question_index >= count($this->questions)) {
@@ -116,16 +126,6 @@ class Play extends Component
 
     public function UseHeleper($name)
     {
-        if ($name == "helepr_RemoveTwoAnswer") {
-            $this->RemoveTwoAnswer = true;
-        }
-        if ($name == "helepr_ChancePercent") {
-            $this->ChancePercent = true;
-            $this->showPrecents = true;
-        }
-        if ($name == "helepr_EnableTwoChance") {
-            $this->EnableTwoChanceClick = true;
-        }
         $CoinUseType = CoinUseType::where("name", $name)->first();
         $user = auth()->user();
         if ($user->wallet >= $CoinUseType->value) {
@@ -136,11 +136,59 @@ class Play extends Component
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'موجودی ناکافی']);
         }
-
     }
 
-    public function helepr_RemoveTwoAnswer()
+    public function RemoveTwoAnswer_btn()
     {
+        $array = [1, 2, 3, 4];
+        array_splice($array, $this->current_question->true_answer - 1, 1);
+        $second_rm = rand(0, count($array) - 1);
+        array_splice($array, $second_rm, 1);
+
+        foreach ($array as $btn) {
+            if ($btn == 1) {
+                $this->hide_answer01 = true;
+            }
+            if ($btn == 2) {
+                $this->hide_answer02 = true;
+            }
+            if ($btn == 3) {
+                $this->hide_answer03 = true;
+            }
+            if ($btn == 4) {
+                $this->hide_answer04 = true;
+            }
+        }
+        $this->RemoveTwoAnswer = true;
         $this->UseHeleper('helepr_RemoveTwoAnswer');
     }
+
+    public function ChancePercent_btn()
+    {
+        $this->ChancePercent = true;
+        $this->showPrecents = true;
+
+        for ($i = 0; $i < 4; $i++) {
+            if ($i == ($this->current_question->true_answer - 1)) {
+                $per = rand(45, 85);
+                $this->precents[$i] = $per;
+            } else {
+                $per = rand(5, 50);
+                $this->precents[$i] = $per;
+            }
+        }
+        $this->UseHeleper('helepr_EnableTwoChance');
+    }
+
+    public function EnableTwoChance_btn()
+    {
+        $this->TwochanceClick = 1;
+        $this->EnableTwoChanceClick = true;
+        $this->dispatchBrowserEvent('TwochanceClickUpdate', '');
+        $this->UseHeleper('helepr_EnableTwoChance');
+    }
+
+
+
+
 }

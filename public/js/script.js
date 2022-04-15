@@ -10,6 +10,10 @@ window.addEventListener('updateSwiper', event => {
     GenerateSwiper();
     console.log("swiper.update");
 });
+window.addEventListener('TwochanceClickUpdate', event => {
+    TwochanceClick = 1;
+    console.log(TwochanceClick);
+});
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -73,6 +77,7 @@ document.addEventListener("turbolinks:before-cache", function () {
 document.addEventListener("turbolinks:load", () => {
     console.log("turbolinks:load");
 });
+
 function getOS() {
 
     var uA = navigator.userAgent || navigator.vendor || window.opera;

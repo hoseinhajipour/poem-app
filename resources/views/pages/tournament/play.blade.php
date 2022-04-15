@@ -41,7 +41,7 @@
                     @if($current_question->true_answer ==1)
                     data-true="1"
                     @endif
-                    class="btn3d btn btn-default form-control SendAnswer01 SelectAnswer">
+                    class="btn3d btn btn-default form-control SendAnswer01 SelectAnswer @if($hide_answer01) d-none @endif">
                 <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700
                 @if($showPrecents==false) d-none @endif
                     ">
@@ -49,7 +49,7 @@
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
                          text-center p-0.5 leading-none rounded-full"
-                        style="width: 100%"></div>
+                        style="width: {{$precents[0]}}%"></div>
                 </div>
 
                 {{$current_question->answer01}}
@@ -62,13 +62,14 @@
                     @if($current_question->true_answer ==2)
                     data-true="2"
                     @endif
-                    class="btn3d btn btn-default form-control SendAnswer02 SelectAnswer">
-                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
+                    class="btn3d btn btn-default form-control SendAnswer02 SelectAnswer @if($hide_answer02) d-none @endif">
+                <div
+                    class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
                     <div
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
                          text-center p-0.5 leading-none rounded-full"
-                        style="width: 100%"></div>
+                        style="width: {{$precents[1]}}%"></div>
                 </div>
                 {{$current_question->answer02}}
             </button>
@@ -79,13 +80,14 @@
                 @if($current_question->true_answer ==3)
                 data-true="3"
                 @endif
-                class="btn3d btn btn-default form-control SendAnswer03 SelectAnswer">
-                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
+                class="btn3d btn btn-default form-control SendAnswer03 SelectAnswer @if($hide_answer03) d-none @endif">
+                <div
+                    class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
                     <div
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
                          text-center p-0.5 leading-none rounded-full"
-                        style="width: 100%"></div>
+                        style="width: {{$precents[2]}}%"></div>
                 </div>
                 {{$current_question->answer03}}
             </button>
@@ -96,13 +98,14 @@
                 @if($current_question->true_answer ==4)
                 data-true="4"
                 @endif
-                class="btn3d btn btn-default form-control SendAnswer04 SelectAnswer">
-                <div class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
+                class="btn3d btn btn-default form-control SendAnswer04 SelectAnswer @if($hide_answer04) d-none @endif">
+                <div
+                    class="chance_precent w-full bg-gray-200 rounded-full dark:bg-gray-700 @if($showPrecents==false) d-none @endif">
                     <div
                         class="chance_progrecss bg-blue-600 text-xs font-medium text-blue-100
                         h-2.5
                          text-center p-0.5 leading-none rounded-full"
-                        style="width: 100%"></div>
+                        style="width: {{$precents[3]}}%"></div>
                 </div>
                 {{$current_question->answer04}}
             </button>
@@ -113,7 +116,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <button onclick="ChancePercent()"
+                    <button wire:click="ChancePercent_btn()"
                             @if(auth()->user()->wallet<60)
                             disabled
                             @endif
@@ -129,7 +132,7 @@
                     </button>
                 </div>
                 <div class="col-4">
-                    <button onclick="RemoveTwoAnswer()"
+                    <button wire:click="RemoveTwoAnswer_btn()"
                             @if(auth()->user()->wallet<40)
                             disabled
                             @endif
@@ -145,7 +148,7 @@
                     </button>
                 </div>
                 <div class="col-4">
-                    <button onclick="EnableTwoChanceClick()"
+                    <button wire:click="EnableTwoChance_btn()"
                             @if(auth()->user()->wallet<60)
                             disabled
                             @endif
@@ -211,7 +214,7 @@
         var TwochanceClick = {{$TwochanceClick}};
 
         function SendAnswer(id) {
-            if (TwochanceClick == 0) {
+            if (TwochanceClick === 0) {
                 $(".SelectAnswer").each(function (child) {
                     $(this).prop("disabled", true);
                 });
@@ -266,58 +269,6 @@
                 StartTimer();
             });
         });
-
-        function randomIndex(arr, excludeIndex) {
-            let indexes = Object.keys(arr); //get a list of indexes
-            indexes.splice(excludeIndex, 1); //remove the unwanted
-            return indexes[Math.floor(Math.random() * indexes.length)]; //pick a new index
-        }
-
-        function RemoveTwoAnswer() {
-            var true_answer = 1;
-            $(".SelectAnswer").each(function (child) {
-                if ($(this).attr("data-true")) {
-                    true_answer = $(this).attr("data-true");
-                }
-            });
-            var RemoveAnswers = [1, 2, 3, 4];
-            RemoveAnswers.splice(true_answer - 1, 1);
-            maximum = 2;
-            minimum = 0;
-            var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-            RemoveAnswers.splice(randomnumber, 1);
-            RemoveAnswers.forEach((element) => {
-                $(".SendAnswer0" + element).addClass("d-none");
-            });
-            $('.RemoveTwoAnswer').prop("disabled", true);
-        @this.UseHeleper('helepr_RemoveTwoAnswer')
-
-        }
-
-        function ChancePercent() {
-            $(".SelectAnswer").each(function (child) {
-                if ($(this).attr("data-true")) {
-                    maximum = 85;
-                    minimum = 45;
-                    var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-                    $(this).find(".chance_progrecss").css("width", randomnumber + "%");
-                } else {
-                    maximum = 50;
-                    minimum = 0;
-                    var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-                    $(this).find(".chance_progrecss").css("width", randomnumber + "%");
-                }
-            });
-            $('.ChancePercent').prop("disabled", true);
-        @this.UseHeleper('helepr_ChancePercent')
-        }
-
-        function EnableTwoChanceClick() {
-            $('.EnableTwoChanceClick').prop("disabled", true);
-            TwochanceClick = 1;
-        @this.UseHeleper('helepr_EnableTwoChance')
-        }
-
 
         function ResetAllButton() {
             $(".SelectAnswer").each(function (child) {
