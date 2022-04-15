@@ -83,7 +83,7 @@ class Play extends Component
             $this->dispatchBrowserEvent('Stop_timer_progress', null);
             $this->current_question_index = count($this->questions) - 1;
             $this->checkWinner();
-        }else{
+        } else {
             $this->dispatchBrowserEvent('start_timer_progress', null);
         }
     }
@@ -110,6 +110,7 @@ class Play extends Component
         }
         $this->tournament->save();
 
+        Session::remove("current_tournament");
         redirect()->to('/home');
     }
 
@@ -193,8 +194,6 @@ class Play extends Component
         $this->dispatchBrowserEvent('TwochanceClickUpdate', '');
         $this->UseHeleper('helepr_EnableTwoChance');
     }
-
-
 
 
 }

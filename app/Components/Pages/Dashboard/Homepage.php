@@ -3,6 +3,7 @@
 namespace App\Components\Pages\Dashboard;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Homepage extends Component
@@ -14,6 +15,8 @@ class Homepage extends Component
         if (isset($id)) {
             $this->currentIndex = $id;
         }
+
+        Session::remove("current_tournament");
     }
 
     public function route()

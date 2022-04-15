@@ -19,7 +19,9 @@ class ReadyForPlay extends Component
 
     public function mount()
     {
-
+        if (Session::get("current_tournament")) {
+            redirect()->to('/tournament/play');
+        }
     }
 
     public function route()
@@ -42,7 +44,12 @@ class ReadyForPlay extends Component
     {
         $this->countDown--;
         if ($this->countDown <= 0) {
-            $this->CreateNewTournament();
+            if (Session::get("current_tournament")) {
+                redirect()->to('/tournament/play');
+            }else{
+                $this->CreateNewTournament();
+            }
+
             return "play";
         } else {
             return $this->countDown;
@@ -85,7 +92,6 @@ class ReadyForPlay extends Component
             $msg .= "شما را به مسابقه دعوت کرده است";
             $this->sendWebNotification(setting('site.title'), $msg, $second_user_id->token);
         }
-
         redirect()->to('/tournament/play');
     }
 
