@@ -13,7 +13,6 @@
             <input type="file" wire:model.defer="image">
         @elseif($type == "music")
             <input type="file" wire:model.defer="music">
-            <button class="btn btn-primary" onclick="trim()">trim</button>
         @elseif($type == "video")
             <input type="file" wire:model.defer="video">
         @endif

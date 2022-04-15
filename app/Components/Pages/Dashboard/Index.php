@@ -16,7 +16,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->categories = QuizCategory::all();
+        $this->categories = QuizCategory::where("status","active")->get();
     }
 
     public function render()
