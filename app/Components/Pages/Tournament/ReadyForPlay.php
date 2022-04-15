@@ -81,7 +81,9 @@ class ReadyForPlay extends Component
 
         $second_user_id = User::find($Tournament->second_user_id);
         if (isset($second_user_id->token)) {
-            $this->sendWebNotification(setting('site.title'), "مسابقه شروع شد", $second_user_id->token);
+            $msg = auth()->user()->name . "\n";
+            $msg .= "شما را به مسابقه دعوت کرده است";
+            $this->sendWebNotification(setting('site.title'), $msg, $second_user_id->token);
         }
 
         redirect()->to('/tournament/play');

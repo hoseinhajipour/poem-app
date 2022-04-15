@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-1">{{$loop->index+1}}</div>
                         <div class="col-2">
-                            <img src="{{ Voyager::image($user->avatar) }}" width="64"/>
+                            <img class="avatar_img" src="{{ Voyager::image($user->avatar) }}" width="64"/>
                         </div>
                         <div class="col-7 text-end">{{$user->name}}</div>
                         <div class="col-2">{{$user->score}}</div>

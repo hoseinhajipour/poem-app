@@ -16,44 +16,43 @@
         <div class="tab-pane fade show active" id="followers" role="tabpanel" aria-labelledby="profile-tab">
             @foreach($followers as $user)
                 <div class="col-12">
-                    <button class="btn3d btn btn-default form-control">
+                    <a href="/user/{{$user->id}}"
+                       data-turbolinks="false"
+                       class="btn3d btn btn-default form-control">
                         <div class="row">
-                            <div class="col-1">{{$loop->index+1}}</div>
                             <div class="col-2">
                                 @if($user->avatar)
-                                    <img src="{{ Voyager::image($user->avatar) }}" width="64"/>
+                                    <img class="avatar_img" src="{{ Voyager::image($user->avatar) }}" width="64"/>
                                 @endif
                             </div>
-                            <div class="col-7 text-end">{{$user->name}}</div>
+                            <div class="col-8 text-end">{{$user->name}}</div>
                             <div class="col-2">{{$user->score}}</div>
-
                         </div>
-                    </button>
+                    </a>
                 </div>
             @endforeach
         </div>
         <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="contact-tab">
             @foreach($following as $user)
                 <div class="col-12">
-                    <button class="btn3d btn btn-default form-control">
+                    <a href="/user/{{$user->id}}"
+                       data-turbolinks="false"
+                       class="btn3d btn btn-default form-control">
                         <div class="row">
-                            <div class="col-1">{{$loop->index+1}}</div>
                             <div class="col-2">
                                 @if($user->avatar)
-                                    <img src="{{ Voyager::image($user->avatar) }}" width="64"/>
+                                    <img class="avatar_img" src="{{ Voyager::image($user->avatar) }}" width="64"/>
                                 @endif
                             </div>
-                            <div class="col-7 text-end">{{$user->name}}</div>
+                            <div class="col-8 text-end">{{$user->name}}</div>
                             <div class="col-2">{{$user->score}}</div>
 
                         </div>
-                    </button>
+                    </a>
                 </div>
             @endforeach
         </div>
     </div>
 
-    <div class="row" dir="rtl">
 
-    </div>
 </div>

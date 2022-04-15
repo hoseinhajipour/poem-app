@@ -109,7 +109,3 @@
     </div>
 </div>
 
-
-@section('modal')
-
-@endsection

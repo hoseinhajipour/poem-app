@@ -3,6 +3,7 @@
 namespace App\Components\Pages\Dashboard;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Friends extends Component

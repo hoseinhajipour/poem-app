@@ -11,6 +11,9 @@ class UserInfo extends Component
     public $user;
     public $followStatus = "دنبال کردن";
 
+    public $follower_count;
+    public $following_count;
+
     public function route()
     {
         return Route::get('/user/{id}')
@@ -28,6 +31,8 @@ class UserInfo extends Component
 
     public function render()
     {
+        $this->following_count = $this->user->following()->get()->count();
+        $this->follower_count = $this->user->followers()->get()->count();
         return view('pages.user.user-info');
     }
 
