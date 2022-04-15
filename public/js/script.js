@@ -34,10 +34,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 });
+var swiper;
 
 function GenerateSwiper() {
     var menu = ['fas fa-cog', 'fas fa-trophy', 'fas fa-home', 'fas fa-user-friends', 'fas fa-shopping-bag'];
-    var swiper = new Swiper('.swiper-container', {
+    swiper = new Swiper('.swiper-container', {
         initialSlide: 2,
         spaceBetween: 30,
         hashNavigation: {

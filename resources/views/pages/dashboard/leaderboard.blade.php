@@ -2,7 +2,9 @@
     <div class="row" dir="rtl">
         @foreach($users as $user)
             <div class="col-12">
-                <button class="btn3d btn btn-default form-control">
+                <a href="/user/{{$user->id}}"
+                   data-turbolinks="false"
+                   class="btn3d btn btn-default form-control">
                     <div class="row">
                         <div class="col-1">{{$loop->index+1}}</div>
                         <div class="col-2">
@@ -12,7 +14,7 @@
                         <div class="col-2">{{$user->score}}</div>
 
                     </div>
-                </button>
+                </a>
             </div>
         @endforeach
     </div>

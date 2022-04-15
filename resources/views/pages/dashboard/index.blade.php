@@ -87,22 +87,34 @@
                         loading...
                     </div>
                     <div wire:loading.remove class="row">
-                        <div class="col-6">
-                            <button wire:click="GoSearchUserPage()"
-                                    data-turbolinks="false"
+                        @if(auth()->user()->wallet>100)
+                            <div class="col-6">
+                                <button wire:click="GoSearchUserPage()"
+                                        data-turbolinks="false"
+                                        class="btn3d btn btn-magick form-control"
+                                        data-bs-dismiss="modal"
+                                >جستجو نام
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button
+                                    wire:click="PlayWithRandomPlayer()"
                                     class="btn3d btn btn-magick form-control"
+                                    data-bs-dismiss="modal">حریف تصادفی
+                                </button>
+                            </div>
+                        @else
+                            <div class="col-12">
+                                <button
+                                    class="btn3d btn btn-danger form-control"
                                     data-bs-dismiss="modal"
-                            >جستجو نام
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button
-                                wire:click="PlayWithRandomPlayer()"
-                                class="btn3d btn btn-magick form-control"
-                                data-bs-dismiss="modal">حریف تصادفی
-                            </button>
-                        </div>
+                                >موجودی سکه کافی نیست
+                                </button>
+                            </div>
+                        @endif
                     </div>
+
+
                 </div>
             </div>
         </div>
