@@ -3,11 +3,12 @@
     <div class="row">
         @foreach($categories as $category)
             <div class="col-6">
-                <button class="btn3d btn btn-primary form-control"
+                <button class="btn3d btn btn-primary form-control text-center"
                         wire:click="SelectCategory({{$category->id}})"
                         data-bs-toggle="modal" data-bs-target="#ReadyForPlay">
-                    <span>{{$category->name}}</span>
-                    <i class="fas fa-play"></i>
+                    <img src="{{ Voyager::image($category->icon) }}" class="center" width="64"/>
+                    <p>{{$category->name}}</p>
+
                 </button>
             </div>
         @endforeach
@@ -23,7 +24,11 @@
 
     <div class="row">
         <div class="col-12 text-center">
-            <b>بازی اخیر</b>
+            <div>
+                <i class="fas fa-chevron-down MoveUpDownAnimate"></i>
+                <b>بازی اخیر</b>
+                <i class="fas fa-chevron-down MoveUpDownAnimate"></i>
+            </div>
         </div>
         @foreach($tournaments as $tournament)
             <div class="col-12">
@@ -90,6 +95,11 @@
                     </div>
                     <div wire:loading.remove class="row">
                         @if(auth()->user()->wallet>100)
+                            <div class="col-12">
+                                <div class="alert alert-info text-center">
+                                    <span>برای شرکت در بازی 100 سکه از اعتبار شما کم می شود</span>
+                                </div>
+                            </div>
                             <div class="col-6">
                                 <button wire:click="GoSearchUserPage()"
                                         data-turbolinks="false"

@@ -1,7 +1,8 @@
 <div class="container" dir="rtl">
     <form wire:submit.prevent="submit">
 
-        <select wire:model="type" class="form-select">
+
+        <select wire:model="type" class="form-select d-none">
             <option value="4answer" selected>چهار جوابی</option>
             <option value="image">عکس</option>
             <option value="music">موزیک</option>
@@ -70,41 +71,6 @@
         </select>
         @error('category') <span class="error">{{ $message }}</span> @enderror
 
-        <button type="submit" class="btn3d btn btn-primary form-control">ارسال سوال</button>
+        <button type="submit" class="btn3d btn btn-success form-control fixed-bottom">ارسال سوال</button>
     </form>
-
-    <script>
-        function trim() {
-            var AudioContext = window.AudioContext || window.webkitAudioContext;
-            var audioCtx = new AudioContext();
-
-            var source = audioCtx.createBufferSource();
-            var dest = audioCtx.createMediaStreamDestination();
-            var mediaRecorder = new MediaRecorder(dest.stream);
-
-            var request = new XMLHttpRequest();
-            request.open('GET', 'your.ogg', true);
-            request.responseType = 'arraybuffer';
-
-            request.onload = function() {
-                var audioData = request.response;
-                audioCtx.decodeAudioData(
-                    audioData,
-                    function(buffer) {
-                        source.buffer = buffer;
-                        source.connect(dest);
-                        mediaRecorder.start();
-                        source.start(audioCtx.currentTime, 3);
-                        // etc...
-                    },
-                    function(e){
-                        console.log("Error with decoding audio data" + e.err);
-                    }
-                );
-
-            }
-
-            request.send();
-        }
-    </script>
 </div>

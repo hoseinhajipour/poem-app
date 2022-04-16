@@ -270,3 +270,22 @@ footer .tab.active {
 .package_title {
     font-size: 10px;
 }
+
+.MoveUpDownAnimate {
+    animation: MoveUpDown 1s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+        bottom: 0;
+    }
+    50% {
+        bottom: 3px;
+    }
+}
+
+.center {
+    width: 35px;
+    margin: 10px auto;
+}
