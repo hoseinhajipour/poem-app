@@ -19,6 +19,9 @@ class ReadyForPlay extends Component
 
     public function mount()
     {
+        $this->matchUser = User::find(Session::get('user_id_for_play'));
+        $this->category_id = Session::get('curent_category_id');
+
         if (Session::get("current_tournament")) {
             redirect()->to('/tournament/play');
         }
@@ -34,8 +37,7 @@ class ReadyForPlay extends Component
 
     public function render()
     {
-        $this->matchUser = User::find(Session::get('user_id_for_play'));
-        $this->category_id = Session::get('curent_category_id');
+
 
         return view('pages.tournament.ready-for-play');
     }

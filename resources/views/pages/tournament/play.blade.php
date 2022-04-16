@@ -258,6 +258,7 @@
                 $(".timer_progress").animate({
                     width: "0%"
                 }, 20000, "linear", function () {
+                    @this.ShowTrueAnswer()
                     $('#NextQuest').modal('show');
                 });
             }, 1000);

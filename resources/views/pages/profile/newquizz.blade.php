@@ -10,7 +10,7 @@
         </select>
 
         @if($type == "image")
-            <input type="file" wire:model.defer="image">
+            <input type="file" accept="image/*" wire:model.defer="image">
         @elseif($type == "music")
             <input type="file" wire:model.defer="music">
         @elseif($type == "video")
