@@ -79,10 +79,10 @@ $(document).ready(function () {
 
 
 document.addEventListener("turbolinks:before-cache", function () {
-    console.log("before-cache");
+    //console.log("before-cache");
 });
 document.addEventListener("turbolinks:load", () => {
-    console.log("turbolinks:load");
+    //console.log("turbolinks:load");
 });
 
 function getOS() {

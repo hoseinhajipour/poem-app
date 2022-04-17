@@ -3,6 +3,7 @@
         @foreach($Packages as $Package)
             <div class="col-4">
                 <button wire:click="Buy({{$Package->id}})"
+                        wire:loading.attr="disabled"
                         class="btn3d btn btn-magick form-control">
                     <b class="package_title">{{$Package->title}}</b>
                     <br/>

@@ -234,6 +234,7 @@ footer .tab.active {
     background-color: #0074b3 !important;
     animation: scaleUp 0.3s normal forwards ease-in-out;
 }
+
 @keyframes scaleUp {
     0% {
         transform: scale(1.0) translate(0px, 0px);
@@ -320,7 +321,17 @@ footer .tab.active {
     width: 35px;
     margin: 10px auto;
 }
-.center_icon{
+
+.center_icon {
     position: relative;
     top: 4px;
+}
+
+.free_coin_text{
+    font-size: 20px;
+}
+.free_coin_icon{
+    font-size: 20px;
+    position: relative;
+    top: 5px;
 }

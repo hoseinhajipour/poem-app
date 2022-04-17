@@ -16,8 +16,8 @@
         <div class="row">
             <div class="col-12">
                 <button id="playMovie" class="btn3d btn btn-magick form-control">
-                    <span>سکه رایگان</span>
-                    <i class="fas fa-video"></i>
+                    <span class="float-start free_coin_text">سکه رایگان</span>
+                    <i class="fas fa-video float-end free_coin_icon"></i>
                 </button>
             </div>
         </div>
