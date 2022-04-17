@@ -11,7 +11,7 @@
     <livewire:styles/>
     <script src="{!!url('/js/jquery.min.js')!!}"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ url('css/style.css?v=1.5') }}">
+    <link rel="stylesheet" href="{{ url('css/style.css?v=1.6') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
@@ -33,7 +33,7 @@
         data-turbolinks-eval="false" data-turbo-eval="false"></script>
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ url('js/script.js?v=1.1') }}"></script>
+<script src="{{ url('js/script.js?v=1.2') }}"></script>
 
 @yield('script')
 </body>

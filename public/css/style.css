@@ -231,6 +231,7 @@ footer .tab.active {
 
 .swiper-pagination-bullet-active {
     color: #fff;
+    background-color: #0074b3 !important;
     animation: scaleUp 0.3s normal forwards ease-in-out;
 }
 @keyframes scaleUp {
@@ -241,6 +242,7 @@ footer .tab.active {
         transform: scale(1.2) translate(0px, -2px);
     }
 }
+
 .btn-ripple {
     display: inline-block;
     position: relative;
