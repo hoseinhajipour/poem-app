@@ -58,4 +58,12 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(message::class, 'to');
     }
 
+    function UpdateScore($true_answer)
+    {
+        $scoreReward = intval($true_answer) * intval(setting('gamesetting.socre_pre_true_answer'));
+        $this->score += $scoreReward;
+        $this->save();
+    }
+
+
 }

@@ -140,6 +140,7 @@ class Play extends Component
 
                 $CoinUseType = CoinUseType::where("name", "tournament_equal")->first();
                 $this->tournament->firstUser->wallet += $CoinUseType->value;
+
                 $this->tournament->firstUser->save();
 
                 $this->tournament->secondUser->wallet += $CoinUseType->value;
@@ -150,6 +151,10 @@ class Play extends Component
                 $NotificationController->sendByUser($title, $message, $this->tournament->first_user_id);
                 $NotificationController->sendByUser($title, $message, $this->tournament->second_user_id);
             }
+
+
+            $this->tournament->firstUser->UpdateScore($this->tournament->first_user_true_answer);
+            $this->tournament->secondUser->UpdateScore($this->tournament->second_user_true_answer);
         }
         $this->tournament->save();
 
