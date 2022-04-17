@@ -1,3 +1,25 @@
+@font-face {
+    font-family: "Kalameh-bold";
+    src: url("/fonts/eot/KalamehWeb_Bold.eot");
+    src: url("/fonts/eot/KalamehWeb_Bold.eott?#iefix") format("embedded-opentype"),
+    url("/fonts/woff/KalamehWeb_Bold.woff2") format("woff2"),
+    url("/fonts/woff/KalamehWeb_Bold.woff") format("woff"),
+    url("/fonts/ttf/KalamehWeb_Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Kalameh-black";
+    src: url("/fonts/eot/KalamehWeb_Black.eot");
+    src: url("/fonts/eot/KalamehWeb_Black.eott?#iefix") format("embedded-opentype"),
+    url("/fonts/woff/KalamehWeb_Black.woff2") format("woff2"),
+    url("/fonts/woff/KalamehWeb_Black.woff") format("woff"),
+    url("/fonts/ttf/KalamehWeb_Black.ttf") format("truetype");
+}
+
+* {
+    font-family: "Kalameh-black";
+}
+
 .btn3d {
     position: relative;
     top: -6px;
@@ -209,9 +231,16 @@ footer .tab.active {
 
 .swiper-pagination-bullet-active {
     color: #fff;
-    transform: scale(1.2) translate(0px, -2px);
+    animation: scaleUp 0.3s normal forwards ease-in-out;
 }
-
+@keyframes scaleUp {
+    0% {
+        transform: scale(1.0) translate(0px, 0px);
+    }
+    100% {
+        transform: scale(1.2) translate(0px, -2px);
+    }
+}
 .btn-ripple {
     display: inline-block;
     position: relative;
@@ -288,4 +317,8 @@ footer .tab.active {
 .center {
     width: 35px;
     margin: 10px auto;
+}
+.center_icon{
+    position: relative;
+    top: 4px;
 }

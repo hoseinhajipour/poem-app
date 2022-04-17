@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 var swiper;
 
 function GenerateSwiper() {
-    var menu = ['fas fa-cog', 'fas fa-trophy', 'fas fa-home', 'fas fa-user-friends', 'fas fa-shopping-bag'];
+    var menu = ['fas fa-cog center_icon', 'fas fa-trophy center_icon', 'fas fa-home center_icon', 'fas fa-user-friends center_icon', 'fas fa-shopping-bag center_icon'];
     swiper = new Swiper('.swiper-container', {
         initialSlide: 2,
         spaceBetween: 30,
