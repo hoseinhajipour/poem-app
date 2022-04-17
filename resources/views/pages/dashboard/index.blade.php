@@ -1,63 +1,63 @@
 <div class="container">
+    <x-Transition transition="above" delay="1">
+        <div class="row">
+            @foreach($categories as $category)
+                <div class="col-6">
+                    <button class="btn3d btn btn-primary form-control text-center"
+                            wire:click="SelectCategory({{$category->id}})"
+                            data-bs-toggle="modal" data-bs-target="#ReadyForPlay">
+                        <img src="{{ Voyager::image($category->icon) }}" class="center" width="64"/>
+                        <p>{{$category->name}}</p>
 
-    <div class="row">
-        @foreach($categories as $category)
-            <div class="col-6">
-                <button class="btn3d btn btn-primary form-control text-center"
-                        wire:click="SelectCategory({{$category->id}})"
-                        data-bs-toggle="modal" data-bs-target="#ReadyForPlay">
-                    <img src="{{ Voyager::image($category->icon) }}" class="center" width="64"/>
-                    <p>{{$category->name}}</p>
-
+                    </button>
+                </div>
+            @endforeach
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button id="playMovie" class="btn3d btn btn-magick form-control">
+                    <span>سکه رایگان</span>
+                    <i class="fas fa-video"></i>
                 </button>
             </div>
-        @endforeach
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <button id="playMovie" class="btn3d btn btn-magick form-control">
-                <span>سکه رایگان</span>
-                <i class="fas fa-video"></i>
-            </button>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 text-center">
-            <div>
-                <i class="fas fa-chevron-down MoveUpDownAnimate"></i>
-                <b>بازی اخیر</b>
-                <i class="fas fa-chevron-down MoveUpDownAnimate"></i>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div>
+                    <i class="fas fa-chevron-down MoveUpDownAnimate"></i>
+                    <b>بازی اخیر</b>
+                    <i class="fas fa-chevron-down MoveUpDownAnimate"></i>
+                </div>
             </div>
-        </div>
-        @foreach($tournaments as $tournament)
-            <div class="col-12">
-                <div wire:click="PlayTournament({{$loop->index}})"
-                     class="btn3d btn {{$this->checkStatus($loop->index)}} form-control">
-                    <div class="row">
-                        <div class="col-3 text-center">
-                            @if($tournament->first_user_id!= auth()->user()->id)
-                                <img src="{{ Voyager::image($tournament->firstUser->avatar) }}" width="64"/>
-                            @else
-                                <img src="{{ Voyager::image($tournament->secondUser->avatar) }}" width="64"/>
-                            @endif
-                        </div>
-                        <div class="col-6">
-                            @if($tournament->first_user_id!= auth()->user()->id)
-                                {{$tournament->firstUser->name}}
-                            @else
-                                {{$tournament->secondUser->name}}
-                            @endif
-                        </div>
-                        <div class="col-3 text-center">
-                            {{$tournament->first_user_true_answer }} - {{$tournament->second_user_true_answer}}
+            @foreach($tournaments as $tournament)
+                <div class="col-12">
+                    <div wire:click="PlayTournament({{$loop->index}})"
+                         class="btn3d btn {{$this->checkStatus($loop->index)}} form-control">
+                        <div class="row">
+                            <div class="col-3 text-center">
+                                @if($tournament->first_user_id!= auth()->user()->id)
+                                    <img src="{{ Voyager::image($tournament->firstUser->avatar) }}" width="64"/>
+                                @else
+                                    <img src="{{ Voyager::image($tournament->secondUser->avatar) }}" width="64"/>
+                                @endif
+                            </div>
+                            <div class="col-6">
+                                @if($tournament->first_user_id!= auth()->user()->id)
+                                    {{$tournament->firstUser->name}}
+                                @else
+                                    {{$tournament->secondUser->name}}
+                                @endif
+                            </div>
+                            <div class="col-3 text-center">
+                                {{$tournament->first_user_true_answer }} - {{$tournament->second_user_true_answer}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-
+            @endforeach
+        </div>
+    </x-Transition>
 
     <script>
         $(document).ready(function () {
