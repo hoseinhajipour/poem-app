@@ -1,6 +1,13 @@
 <div class="container" dir="rtl">
     <form wire:submit.prevent="submit">
 
+        <select wire:model.defer="category" class="form-select">
+            <option value="" selected>انتخاب دسته بندی</option>
+            @foreach($categories as $cat)
+                <option value="{{$cat->id}}">{{$cat->name}}</option>
+            @endforeach
+        </select>
+        @error('category') <span class="error">{{ $message }}</span> @enderror
 
         <select wire:model="type" class="form-select d-none">
             <option value="4answer" selected>چهار جوابی</option>
@@ -63,13 +70,7 @@
         </div>
 
 
-        <select wire:model.defer="category" class="form-select">
-            <option value="" selected>انتخاب دسته بندی</option>
-            @foreach($categories as $cat)
-                <option value="{{$cat->id}}">{{$cat->name}}</option>
-            @endforeach
-        </select>
-        @error('category') <span class="error">{{ $message }}</span> @enderror
+
 
         <button type="submit" class="btn3d btn btn-success form-control fixed-bottom">ارسال سوال</button>
     </form>

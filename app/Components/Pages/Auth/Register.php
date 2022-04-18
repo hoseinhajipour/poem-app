@@ -15,7 +15,7 @@ class Register extends Component
 {
     use WithHoney;
 
-    public $name, $email, $password, $password_confirmation;
+    public $name, $email, $password;
 
     public function route()
     {
@@ -34,7 +34,7 @@ class Register extends Component
         return [
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'confirmed'],
+            'password' => ['required'],
         ];
     }
 

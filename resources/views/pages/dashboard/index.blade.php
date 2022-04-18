@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="padding-bottom: 100px">
     <x-Transition transition="above" delay="1">
         <div class="row">
             @foreach($categories as $category)

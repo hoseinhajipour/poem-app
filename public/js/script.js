@@ -37,10 +37,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 var swiper;
 
 function GenerateSwiper() {
-    var menu = ['fas fa-cog center_icon', 'fas fa-trophy center_icon', 'fas fa-home center_icon', 'fas fa-user-friends center_icon', 'fas fa-shopping-bag center_icon'];
+    var menu = ['btn_footer fas fa-cog center_icon', 'btn_footer fas fa-trophy center_icon',
+        'btn_footer fas fa-home center_icon', 'btn_footer fas fa-user-friends center_icon',
+        'btn_footer fas fa-shopping-bag center_icon'];
     swiper = new Swiper('.swiper-container', {
         initialSlide: 2,
         spaceBetween: 30,
+        autoHeight: true,
         hashNavigation: {
             watchState: true,
         },
@@ -52,7 +55,6 @@ function GenerateSwiper() {
                 var row = '<span class="' + className + '">';
                 row += '<span class="' + menu[index] + '"></span>';
                 row += '</span>';
-
                 return row;
             },
         },
@@ -75,6 +77,18 @@ $(document).ready(function () {
     $(".appendHomeUrl").click(event => {
         appendHomeUrl();
     });
+
+    $('.btn').on('click', function () {
+        var obj = document.createElement('audio');
+        obj.src = '/sound/click.mp3';
+        obj.play();
+    });
+    $('.btn_footer').on('click', function () {
+        var obj = document.createElement('audio');
+        obj.src = '/sound/click.mp3';
+        obj.play();
+    });
+
 });
 
 
@@ -95,4 +109,21 @@ function getOS() {
 }
 
 
-String.prototype.toPersianDigit = function (a) { return this.replace(/\d+/g, function (digit) { var enDigitArr = [], peDigitArr = []; for (var i = 0; i < digit.length; i++) { enDigitArr.push(digit.charCodeAt(i)); } for (var j = 0; j < enDigitArr.length; j++) { peDigitArr.push(String.fromCharCode(enDigitArr[j] + ((!!a && a == true) ? 1584 : 1728))); } return peDigitArr.join(''); }); }; function TraceNodes(Node) { if (Node.nodeType == 3) Node.nodeValue = Node.nodeValue.toPersianDigit(); else for (var i = 0; i < Node.childNodes.length; i++) TraceNodes(Node.childNodes[i]); } TraceNodes(document);
+String.prototype.toPersianDigit = function (a) {
+    return this.replace(/\d+/g, function (digit) {
+        var enDigitArr = [], peDigitArr = [];
+        for (var i = 0; i < digit.length; i++) {
+            enDigitArr.push(digit.charCodeAt(i));
+        }
+        for (var j = 0; j < enDigitArr.length; j++) {
+            peDigitArr.push(String.fromCharCode(enDigitArr[j] + ((!!a && a == true) ? 1584 : 1728)));
+        }
+        return peDigitArr.join('');
+    });
+};
+
+function TraceNodes(Node) {
+    if (Node.nodeType == 3) Node.nodeValue = Node.nodeValue.toPersianDigit(); else for (var i = 0; i < Node.childNodes.length; i++) TraceNodes(Node.childNodes[i]);
+}
+
+TraceNodes(document);

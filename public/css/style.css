@@ -11,7 +11,7 @@
     font-family: "Kalameh-black";
     src: url("/fonts/eot/KalamehWeb_Black.eot");
     src: url("/fonts/eot/KalamehWeb_Black.eott?#iefix") format("embedded-opentype"),
-    url("/fonts/woff/KalamehWeb_Black.woff2") format("woff2"),
+    url("/fonts/woff2/KalamehWeb_Black.woff2") format("woff2"),
     url("/fonts/woff/KalamehWeb_Black.woff") format("woff"),
     url("/fonts/ttf/KalamehWeb_Black.ttf") format("truetype");
 }
