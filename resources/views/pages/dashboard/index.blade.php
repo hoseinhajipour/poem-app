@@ -1,6 +1,14 @@
 <div class="container" style="padding-bottom: 100px">
     <x-Transition transition="above" delay="1">
         <div class="row">
+            <div class="col-12">
+                <a href="/tournament/new" class="btn3d btn btn-success form-control">
+                    <span class="float-start free_coin_text">بازی جدید</span>
+                    <i class="fas fa-play float-end free_coin_icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row d-none">
             @foreach($categories as $category)
                 <div class="col-6">
                     <button class="btn3d btn btn-primary form-control text-center"
