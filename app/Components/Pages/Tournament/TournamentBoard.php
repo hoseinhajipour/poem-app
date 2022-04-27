@@ -4,11 +4,14 @@ namespace App\Components\Pages\Tournament;
 
 use App\Models\TournamentBoard as TournamentBoardModel;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class TournamentBoard extends Component
 {
     public $TournamentBoard;
+    public $allowPlay = false;
+    public $Currenttournament;
 
     public function mount($id)
     {
@@ -22,6 +25,26 @@ class TournamentBoard extends Component
             ->with('tournament05')
             ->with('tournament06')
             ->first();
+
+        $this->Currenttournament = $this->TournamentBoard->getAttribute('tournament0' . $this->TournamentBoard->current_turn);
+
+        if ($this->Currenttournament->status == "play") {
+            $this->allowPlay = true;
+
+            if ($this->Currenttournament->first_user_id == auth()->user()->id) {
+                if (isset($this->Currenttournament->first_user_true_answer)) {
+                    $this->allowPlay = false;
+                }
+            }
+            if ($this->Currenttournament->second_user_id == auth()->user()->id) {
+                if (isset($this->Currenttournament->second_user_true_answer)) {
+                    $this->allowPlay = false;
+                }
+            }
+        } elseif ($this->Currenttournament->status == "complete") {
+            $this->allowPlay = true;
+        }
+
 
     }
 
@@ -46,5 +69,23 @@ class TournamentBoard extends Component
         }
 
         $this->redirect('/chat/' . $userid);
+    }
+
+    public function endGame()
+    {
+        $this->TournamentBoard->endgame = true;
+        $this->TournamentBoard->save();
+        $this->redirect('/home');
+    }
+
+    public function DoPlay()
+    {
+        if ($this->Currenttournament->status == "complete") {
+            redirect()->to('/tournament/select-category/' . $this->TournamentBoard->id);
+        } else {
+            Session::put('current_tournament', $this->Currenttournament->id);
+            redirect()->to('/tournament/play');
+        }
+
     }
 }

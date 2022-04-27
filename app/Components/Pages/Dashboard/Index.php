@@ -2,10 +2,7 @@
 
 namespace App\Components\Pages\Dashboard;
 
-use App\Models\Tournament;
 use App\Models\TournamentBoard as TournamentBoardModel;
-use App\Models\User;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Index extends Component
@@ -39,7 +36,6 @@ class Index extends Component
     }
 
 
-
     public function ShowCurrenttournaments()
     {
         $this->tournaments = TournamentBoardModel::where("first_user_id", auth()->user()->id)
@@ -52,39 +48,9 @@ class Index extends Component
 
     public function PlayTournament($index)
     {
-        return redirect()->to('/tournament/board/'.$index);
-
-        /*
-        if ($this->tournaments[$index]->status == "play") {
-            $allowPlay = true;
-
-            if ($this->tournaments[$index]->first_user_id == auth()->user()->id) {
-                if (isset($this->tournaments[$index]->first_user_true_answer)) {
-                    $allowPlay = false;
-                }
-            }
-            if ($this->tournaments[$index]->second_user_id == auth()->user()->id) {
-                if (isset($this->tournaments[$index]->second_user_true_answer)) {
-                    $allowPlay = false;
-                }
-            }
-            if ($allowPlay) {
-                $this->dispatchBrowserEvent('alert',
-                    ['type' => 'success', 'message' => 'آماده برای بازی']);
-                Session::put('current_tournament', $this->tournaments[$index]->id);
-                redirect()->to('/tournament/play');
-            } else {
-                session()->flash('alert', true);
-                session()->flash('type', 'error');
-                session()->flash('message', 'نوبت شما تمام شده است');
-
-                $this->dispatchBrowserEvent('alert',
-                    ['type' => 'error',  'message' => 'نوبت شما تمام شده است']);
-
-            }
-
+        if ($this->tournaments[$index]->endgame == false) {
+            return redirect()->to('/tournament/board/' . $this->tournaments[$index]->id);
         }
-        */
     }
 
     public function checkStatus($index)

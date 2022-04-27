@@ -42,7 +42,7 @@ class NewTournament extends Component
         $Tournament = new  Tournament();
         $Tournament->first_user_id = auth()->user()->id;
         $Tournament->second_user_id = $otherUser[0]->id;
-        $Tournament->category_id = $otherUser[0]->id;
+        $Tournament->category_id = $category[0]->id;
         $Tournament->status = "play";
         $Tournament->save();
 

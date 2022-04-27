@@ -8,3 +8,4 @@ import Swiper from 'swiper';
 import 'swiper/css';
 
 window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
+

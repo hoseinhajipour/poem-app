@@ -29,7 +29,7 @@
             </div>
             @foreach($tournaments as $tournament)
                 <div class="col-12">
-                    <div wire:click="PlayTournament({{$tournament->id}})"
+                    <div wire:click="PlayTournament({{$loop->index}})"
                          class="btn3d btn btn-primary form-control">
                         <div class="row">
                             <div class="col-3 text-center">

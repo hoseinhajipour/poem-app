@@ -9,7 +9,7 @@
     <title>@yield('title') | {{ setting('site.title') }}</title>
 
     <livewire:styles/>
-    @livewire('livewire-ui-modal')
+
     <script src="{!!url('/js/jquery.min.js')!!}"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ url('css/style.css?v=1.7') }}">
@@ -30,8 +30,10 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <livewire:scripts/>
+
 <script src="https://cdn.jsdelivr.net/gh/livewire/turbolinks@v0.1.x/dist/livewire-turbolinks.js"
         data-turbolinks-eval="false" data-turbo-eval="false"></script>
+
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="{{ url('js/script.js?v=1.6') }}"></script>

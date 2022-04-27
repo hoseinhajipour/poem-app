@@ -34,10 +34,10 @@
                 <button wire:click="GoChatPage()" class="btn btn-primary form-control">گفتگو</button>
             </div>
             <div class="col-4">
-                <button class="btn btn-success form-control">بازی کن</button>
+                <button @if($allowPlay==false) disabled @endif wire:click="DoPlay()" class="btn btn-success form-control">بازی کن</button>
             </div>
             <div class="col-4">
-                <button class="btn btn-danger form-control">تسلیم</button>
+                <button wire:click="endGame()" class="btn btn-danger form-control">تسلیم</button>
             </div>
         </div>
     </div>
