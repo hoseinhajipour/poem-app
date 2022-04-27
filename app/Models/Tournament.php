@@ -12,7 +12,9 @@ class Tournament extends Model
     protected $fillable = [
         'first_user_id', 'second_user_id',
         'winner_user_id', 'first_user_true_answer',
-        'second_user_true_answer', 'status'];
+        'second_user_true_answer', 'status',
+        'category_id',
+    ];
     protected $appends = array('Winstatus', 'AllowPlay');
 
     public function firstUser()
@@ -23,6 +25,10 @@ class Tournament extends Model
     public function secondUser()
     {
         return $this->belongsTo(User::class, "second_user_id");
+    }
+    public function category()
+    {
+        return $this->belongsTo(QuizCategory::class, "category_id");
     }
 
     public function quizzes()

@@ -2,21 +2,20 @@
 
 namespace App\Components\Pages\Dashboard;
 
-use App\Models\QuizCategory;
 use App\Models\Tournament;
+use App\Models\TournamentBoard as TournamentBoardModel;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public $categories = [];
-    public $category_id;
+
     public $tournaments = [];
 
     public function mount()
     {
-        $this->categories = QuizCategory::where("status","active")->get();
+
     }
 
     public function render()
@@ -25,6 +24,7 @@ class Index extends Component
         return view('pages.dashboard.index');
 
     }
+
     public function Rewardincrement()
     {
         $user = auth()->user();
@@ -33,28 +33,16 @@ class Index extends Component
         $this->redirect('#');
     }
 
-    public function SelectCategory($id)
+    public function NewPlayGame()
     {
-        $this->category_id = $id;
+        return redirect()->to('/tournament/new');
     }
 
-    public function GoSearchUserPage()
-    {
-        Session::put('curent_category_id', $this->category_id);
-        return redirect()->to('/search/user-list');
-    }
 
-    public function PlayWithRandomPlayer()
-    {
-        Session::put('curent_category_id', $this->category_id);
-        $otherUser = User::where("id", "!=", auth()->user()->id)->inRandomOrder()->limit(1)->get();
-        Session::put('user_id_for_play', $otherUser[0]->id);
-        return redirect()->to('/tournament/ready-for-play');
-    }
 
     public function ShowCurrenttournaments()
     {
-        $this->tournaments = Tournament::where("first_user_id", auth()->user()->id)
+        $this->tournaments = TournamentBoardModel::where("first_user_id", auth()->user()->id)
             ->OrWhere("second_user_id", auth()->user()->id)
             ->with("firstUser")
             ->with("secondUser")
@@ -64,6 +52,9 @@ class Index extends Component
 
     public function PlayTournament($index)
     {
+        return redirect()->to('/tournament/board/'.$index);
+
+        /*
         if ($this->tournaments[$index]->status == "play") {
             $allowPlay = true;
 
@@ -86,13 +77,14 @@ class Index extends Component
                 session()->flash('alert', true);
                 session()->flash('type', 'error');
                 session()->flash('message', 'نوبت شما تمام شده است');
-                /*
+
                 $this->dispatchBrowserEvent('alert',
                     ['type' => 'error',  'message' => 'نوبت شما تمام شده است']);
-                */
+
             }
 
         }
+        */
     }
 
     public function checkStatus($index)

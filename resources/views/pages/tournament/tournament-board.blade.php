@@ -3,32 +3,42 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-
+                    <div align="center">
+                        <img src="{{ Voyager::image($TournamentBoard->firstUser->avatar) }}" width="64"/>
+                    </div>
+                    <b>{{$TournamentBoard->firstUser->name}}</b>
                 </div>
                 <div class="col-4">
-                    0 - 0
+                    {{$TournamentBoard->first_user_win }} - {{$TournamentBoard->second_win}}
                 </div>
-                <div class="col-4"></div>
+                <div class="col-4">
+                    <div align="center">
+                        <img src="{{ Voyager::image($TournamentBoard->secondUser->avatar) }}" width="64"/>
+                    </div>
+                    <b>{{$TournamentBoard->secondUser->name}}</b>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-5">
-            <i class="fas fa-circle"></i>
-            <i class="fas fa-circle"></i>
-            <i class="fas fa-circle"></i>
-        </div>
-        <div class="col-2">
-            <!--
-            <img src="{{ Voyager::image($category->icon) }}" class="center" width="32"/>
-            <p>{{$category->name}}</p>
-            -->
-        </div>
-        <div class="col-5">
-            <i class="fas fa-circle"></i>
-            <i class="fas fa-circle"></i>
-            <i class="fas fa-circle"></i>
+    <livewire:pages.tournament.turn :tournament="$TournamentBoard->tournament01"/>
+    <livewire:pages.tournament.turn :tournament="$TournamentBoard->tournament02"/>
+    <livewire:pages.tournament.turn :tournament="$TournamentBoard->tournament03"/>
+    <livewire:pages.tournament.turn :tournament="$TournamentBoard->tournament04"/>
+    <livewire:pages.tournament.turn :tournament="$TournamentBoard->tournament05"/>
+    <livewire:pages.tournament.turn :tournament="$TournamentBoard->tournament06"/>
+
+    <div class="fixed-bottom">
+        <div class="row">
+            <div class="col-4">
+                <button wire:click="GoChatPage()" class="btn btn-primary form-control">گفتگو</button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-success form-control">بازی کن</button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-danger form-control">تسلیم</button>
+            </div>
         </div>
     </div>
 </div>

@@ -327,11 +327,16 @@ footer .tab.active {
     top: 4px;
 }
 
-.free_coin_text{
+.free_coin_text {
     font-size: 20px;
 }
-.free_coin_icon{
+
+.free_coin_icon {
     font-size: 20px;
     position: relative;
     top: 5px;
+}
+
+.green_color {
+    color: green;
 }
