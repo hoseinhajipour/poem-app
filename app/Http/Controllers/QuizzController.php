@@ -7,7 +7,6 @@ use App\Models\Quiz;
 use App\Models\Quizz;
 use App\Models\QuizzCategory;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class QuizzController extends Controller
 {
@@ -26,9 +25,9 @@ class QuizzController extends Controller
         }
 
         if ($Quizz->status == "approve") {
-            $CoinUseType = CoinUseType::where("id", 12)->first();
-            $authUser = User::where("id", $Quizz->user_id)->first();
-            $authUser->coin += $CoinUseType->amount;
+            $CoinUseType = CoinUseType::where("name", "approve_quiz")->first();
+            $authUser = User::find($Quizz->author_id);
+            $authUser->wallet += $CoinUseType->amount;
             $authUser->save();
         }
 

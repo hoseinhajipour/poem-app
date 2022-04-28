@@ -49,7 +49,7 @@
                             <div class="col-3 text-center">
                                 <span>{{$tournament->first_user_win?$tournament->first_user_win:0 }}</span>
                                 <span> - </span>
-                                <span>{{$tournament->second_win?$tournament->second_win:0}}</span>
+                                <span>{{$tournament->second_user_win?$tournament->second_user_win:0}}</span>
                             </div>
                         </div>
                     </div>

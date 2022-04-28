@@ -83,6 +83,10 @@ class Userlist extends Component
         $TournamentBoard->tournament_01 = $Tournament->id;
         $TournamentBoard->first_user_id = auth()->user()->id;
         $TournamentBoard->second_user_id = $otherUser->id;
+        $TournamentBoard->user_category_selector = auth()->user()->id;
+        if ($otherUser->isbot == 1) {
+            $TournamentBoard->bot_user_id = $otherUser->id;
+        }
         $TournamentBoard->save();
 
         Session::put('current_tournament', $Tournament->id);

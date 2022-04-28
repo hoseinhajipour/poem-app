@@ -12,10 +12,26 @@ class TournamentBoard extends Component
     public $TournamentBoard;
     public $allowPlay = false;
     public $Currenttournament;
+    public $Boardid;
 
     public function mount($id)
     {
-        $this->TournamentBoard = TournamentBoardModel::where('id', $id)
+        $this->Boardid = $id;
+
+    }
+
+    public function route()
+    {
+
+
+        return Route::get('/tournament/board/{id}')
+            ->name('Tournament.board')
+            ->middleware('auth');
+    }
+
+    public function render()
+    {
+        $this->TournamentBoard = TournamentBoardModel::where('id', $this->Boardid)
             ->with('firstUser')
             ->with('secondUser')
             ->with('tournament01')
@@ -25,14 +41,14 @@ class TournamentBoard extends Component
             ->with('tournament05')
             ->with('tournament06')
             ->first();
-
         $this->Currenttournament = $this->TournamentBoard->getAttribute('tournament0' . $this->TournamentBoard->current_turn);
 
-        if($this->TournamentBoard->status == "play"){
+        if ($this->TournamentBoard->status == "play") {
             if ($this->Currenttournament->status == "play") {
                 $this->allowPlay = true;
 
                 if ($this->Currenttournament->first_user_id == auth()->user()->id) {
+
                     if (isset($this->Currenttournament->first_user_true_answer)) {
                         $this->allowPlay = false;
                     }
@@ -40,23 +56,26 @@ class TournamentBoard extends Component
                 if ($this->Currenttournament->second_user_id == auth()->user()->id) {
                     if (isset($this->Currenttournament->second_user_true_answer)) {
                         $this->allowPlay = false;
+
                     }
                 }
-            } elseif ($this->Currenttournament->status == "complete") {
-                $this->allowPlay = true;
+
+
+            } elseif ($this->Currenttournament->status == "complete" || $this->Currenttournament->status == "equal") {
+
+                if ($this->TournamentBoard->user_category_selector == auth()->user()->id) {
+                    $this->allowPlay = false;
+                } else {
+                    $this->allowPlay = true;
+                }
+
             }
         }
-    }
 
-    public function route()
-    {
-        return Route::get('/tournament/board/{id}')
-            ->name('Tournament.board')
-            ->middleware('auth');
-    }
-
-    public function render()
-    {
+        if ($this->TournamentBoard->current_turn == 6) {
+            $this->allowPlay = false;
+            $this->endGame();
+        }
         return view('pages.tournament.tournament-board');
     }
 
@@ -80,7 +99,8 @@ class TournamentBoard extends Component
 
     public function DoPlay()
     {
-        if ($this->Currenttournament->status == "complete") {
+
+        if ($this->Currenttournament->status == "complete" || $this->Currenttournament->status == "equal") {
             if ($this->TournamentBoard->current_turn <= 5) {
                 redirect()->to('/tournament/select-category/' . $this->TournamentBoard->id);
             } else {

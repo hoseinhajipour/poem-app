@@ -166,9 +166,14 @@ class Play extends Component
         if (isset($this->tournament->first_user_true_answer) && isset($this->tournament->second_user_true_answer)) {
             if ($this->tournament->first_user_true_answer > $this->tournament->second_user_true_answer) {
                 $this->TournamentBoard->first_user_win++;
+            }
+            if ($this->tournament->first_user_true_answer == $this->tournament->second_user_true_answer) {
+                $this->TournamentBoard->first_user_win++;
+                $this->TournamentBoard->second_user_win++;
             } else {
                 $this->TournamentBoard->second_user_win++;
             }
+            $this->TournamentBoard->save();
         }
 
         // Session::remove("current_tournament");
