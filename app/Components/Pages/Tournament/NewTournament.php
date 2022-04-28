@@ -67,6 +67,7 @@ class NewTournament extends Component
         if ($otherUser[0]->isbot == 1) {
             $TournamentBoard->bot_user_id = $otherUser[0]->id;
         }
+        $TournamentBoard->user_category_selector = auth()->user()->id;
         $TournamentBoard->save();
 
         Session::put('current_tournament', $Tournament->id);
