@@ -30,7 +30,7 @@
             @foreach($tournaments as $tournament)
                 <div class="col-12">
                     <div wire:click="PlayTournament({{$loop->index}})"
-                         class="btn3d btn btn-primary form-control">
+                         class="btn3d btn {{$this->checkStatus($loop->index)}} form-control">
                         <div class="row">
                             <div class="col-3 text-center">
                                 @if($tournament->first_user_id!= auth()->user()->id)

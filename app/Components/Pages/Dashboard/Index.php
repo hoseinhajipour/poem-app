@@ -59,6 +59,8 @@ class Index extends Component
             return "btn-success";
         } else if ($this->tournaments[$index]->status == "equal") {
             return "btn-warning";
+        } else if ($this->tournaments[$index]->status == "complete") {
+            return "btn-magick";
         } else {
             return "btn-default";
         }

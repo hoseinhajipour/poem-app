@@ -28,24 +28,24 @@ class TournamentBoard extends Component
 
         $this->Currenttournament = $this->TournamentBoard->getAttribute('tournament0' . $this->TournamentBoard->current_turn);
 
-        if ($this->Currenttournament->status == "play") {
-            $this->allowPlay = true;
+        if($this->TournamentBoard->status == "play"){
+            if ($this->Currenttournament->status == "play") {
+                $this->allowPlay = true;
 
-            if ($this->Currenttournament->first_user_id == auth()->user()->id) {
-                if (isset($this->Currenttournament->first_user_true_answer)) {
-                    $this->allowPlay = false;
+                if ($this->Currenttournament->first_user_id == auth()->user()->id) {
+                    if (isset($this->Currenttournament->first_user_true_answer)) {
+                        $this->allowPlay = false;
+                    }
                 }
-            }
-            if ($this->Currenttournament->second_user_id == auth()->user()->id) {
-                if (isset($this->Currenttournament->second_user_true_answer)) {
-                    $this->allowPlay = false;
+                if ($this->Currenttournament->second_user_id == auth()->user()->id) {
+                    if (isset($this->Currenttournament->second_user_true_answer)) {
+                        $this->allowPlay = false;
+                    }
                 }
+            } elseif ($this->Currenttournament->status == "complete") {
+                $this->allowPlay = true;
             }
-        } elseif ($this->Currenttournament->status == "complete") {
-            $this->allowPlay = true;
         }
-
-
     }
 
     public function route()
@@ -73,7 +73,7 @@ class TournamentBoard extends Component
 
     public function endGame()
     {
-        $this->TournamentBoard->endgame = true;
+        $this->TournamentBoard->status = "complete";
         $this->TournamentBoard->save();
         $this->redirect('/home');
     }

@@ -5,10 +5,10 @@ namespace App\Components\Pages\Tournament;
 use App\Http\Controllers\SendNotificationController;
 use App\Models\CoinUseType;
 use App\Models\Tournament;
+use App\Models\TournamentBoard as TournamentBoardModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Play extends Component
@@ -32,6 +32,8 @@ class Play extends Component
     public $hide_answer04 = false;
     public $precents = [];
 
+    public $TournamentBoard;
+
     public function route()
     {
         return Route::get('/tournament/play/{id}')
@@ -54,6 +56,8 @@ class Play extends Component
             ->first();
         $this->questions = $this->tournament->quizzes;
 
+
+        $this->TournamentBoard = TournamentBoardModel::find($request->b);
         $this->dispatchBrowserEvent('start_timer_progress', null);
     }
 
@@ -159,8 +163,10 @@ class Play extends Component
         }
         $this->tournament->save();
 
-       // Session::remove("current_tournament");
-       return redirect()->to('/home');
+        // Session::remove("current_tournament");
+
+        return redirect()->to('/tournament/board/' . $this->TournamentBoard->id);
+       // return redirect()->to('/home');
     }
 
     public function LikeQuest()
