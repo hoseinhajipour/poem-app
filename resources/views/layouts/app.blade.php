@@ -12,7 +12,7 @@
 
     <script src="{!!url('/js/jquery.min.js')!!}"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ url('css/style.css?v=1.7') }}">
+    <link rel="stylesheet" href="{{ url('css/style.css?v=1.8') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
 
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ url('js/script.js?v=1.6') }}"></script>
+<script src="{{ url('js/script.js?v=1.7') }}"></script>
 
 @yield('script')
 </body>

@@ -2,15 +2,12 @@
 
 namespace App\Components\Pages\Tournament;
 
-use App\Models\CoinUseType;
 use App\Models\Quiz;
 use App\Models\QuizCategory;
 use App\Models\Tournament;
 use App\Models\TournamentBoard as TournamentBoardModel;
 use App\Models\TournamentQuiz;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class SelectCategory extends Component
@@ -64,12 +61,19 @@ class SelectCategory extends Component
             $appendQuizz->save();
         }
 
+        //switch next category_selector
+        if ($this->TournamentBoard->user_category_selector == $this->TournamentBoard->first_user_id) {
+            $this->TournamentBoard->user_category_selector = $this->TournamentBoard->second_user_id;
+        } else {
+            $this->TournamentBoard->user_category_selector = $this->TournamentBoard->first_user_id;
+        }
+
         $this->TournamentBoard->current_turn++;
-        $this->TournamentBoard->setAttribute('tournament_0' . $this->TournamentBoard->current_turn,$Tournament->id);
+        $this->TournamentBoard->setAttribute('tournament_0' . $this->TournamentBoard->current_turn, $Tournament->id);
         $this->TournamentBoard->save();
 
         return redirect()->to('/tournament/play/' . $Tournament->id . '?b=' . $this->TournamentBoard->id);
-      //  return redirect()->to('/tournament/play');
+        //  return redirect()->to('/tournament/play');
     }
 
     public function render()

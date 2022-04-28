@@ -77,18 +77,18 @@ $(document).ready(function () {
     $(".appendHomeUrl").click(event => {
         appendHomeUrl();
     });
-
-    $('.btn').on('click', function () {
-        var obj = document.createElement('audio');
-        obj.src = '/sound/click.mp3';
-        obj.play();
-    });
-    $('.btn_footer').on('click', function () {
-        var obj = document.createElement('audio');
-        obj.src = '/sound/click.mp3';
-        obj.play();
-    });
-
+    /*
+        $('.btn').on('click', function () {
+            var obj = document.createElement('audio');
+            obj.src = '/sound/click.mp3';
+            obj.play();
+        });
+        $('.btn_footer').on('click', function () {
+            var obj = document.createElement('audio');
+            obj.src = '/sound/click.mp3';
+            obj.play();
+        });
+    */
 });
 
 
