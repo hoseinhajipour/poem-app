@@ -6,6 +6,7 @@ use App\Http\Controllers\SendNotificationController;
 use App\Models\CoinUseType;
 use App\Models\Tournament;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -33,19 +34,19 @@ class Play extends Component
 
     public function route()
     {
-        return Route::get('/tournament/play')
+        return Route::get('/tournament/play/{id}')
             ->name('Tournament.Play')
             ->middleware('auth');
     }
 
-    public function mount()
+    public function mount(Request $request)
     {
         $this->precents[0] = 0;
         $this->precents[1] = 0;
         $this->precents[2] = 0;
         $this->precents[3] = 0;
 
-        $current_tournament = Session::get('current_tournament');
+        $current_tournament = $request->id;
         $this->tournament = Tournament::where("id", $current_tournament)
             ->with("quizzes")
             ->with("firstUser")
@@ -158,8 +159,8 @@ class Play extends Component
         }
         $this->tournament->save();
 
-        Session::remove("current_tournament");
-        redirect()->to('/home');
+       // Session::remove("current_tournament");
+       return redirect()->to('/home');
     }
 
     public function LikeQuest()

@@ -11,15 +11,21 @@ class ReadyForPlay extends Component
 {
     public $countDown = 3;
     public $TournamentBoard;
-    public $matchUser;
-
+    public $Currenttournament;
     public function mount($id)
     {
         $this->TournamentBoard = TournamentBoardModel::where('id', $id)
+            ->with('firstUser')
+            ->with('secondUser')
             ->with('tournament01')
+            ->with('tournament02')
+            ->with('tournament03')
+            ->with('tournament04')
+            ->with('tournament05')
+            ->with('tournament06')
             ->first();
-        Session::put('current_tournament', $this->TournamentBoard->tournament_01);
-        $this->matchUser = $this->TournamentBoard->tournament01->secondUser;
+
+        $this->Currenttournament = $this->TournamentBoard->getAttribute('tournament0' . $this->TournamentBoard->current_turn);
     }
 
     public function route()
@@ -39,7 +45,7 @@ class ReadyForPlay extends Component
     {
         $this->countDown--;
         if ($this->countDown <= 0) {
-            redirect()->to('/tournament/play');
+            redirect()->to('/tournament/play/' . $this->Currenttournament->id . '?b=' . $this->TournamentBoard->id);
             return "play";
         } else {
             return $this->countDown;

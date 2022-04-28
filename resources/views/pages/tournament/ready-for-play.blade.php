@@ -2,15 +2,15 @@
     <div class="row">
         <div class="col-6 text-center">
             <div align="center">
-                <img src="{{ Voyager::image(auth()->user()->avatar) }}" width="64"/>
+                <img src="{{ Voyager::image( $TournamentBoard->firstUser->avatar) }}" width="64"/>
             </div>
-            <b>{{auth()->user()->name}}</b>
+            <b>{{$TournamentBoard->firstUser->name}}</b>
         </div>
         <div class="col-6 text-center">
             <div align="center">
-                <img src="{{ Voyager::image($matchUser->avatar) }}" width="64"/>
+                <img src="{{ Voyager::image($TournamentBoard->secondUser->avatar) }}" width="64"/>
             </div>
-            <b>{{$matchUser->name}}</b>
+            <b>{{$TournamentBoard->secondUser->name}}</b>
         </div>
     </div>
 

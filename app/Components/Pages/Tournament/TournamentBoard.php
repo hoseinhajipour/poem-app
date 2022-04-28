@@ -81,11 +81,15 @@ class TournamentBoard extends Component
     public function DoPlay()
     {
         if ($this->Currenttournament->status == "complete") {
-            redirect()->to('/tournament/select-category/' . $this->TournamentBoard->id);
+            if ($this->TournamentBoard->current_turn <= 5) {
+                redirect()->to('/tournament/select-category/' . $this->TournamentBoard->id);
+            } else {
+                $this->endGame();
+            }
+
         } else {
             Session::put('current_tournament', $this->Currenttournament->id);
-            redirect()->to('/tournament/play');
+            redirect()->to('/tournament/play/' . $this->Currenttournament->id . '?b=' . $this->TournamentBoard->id);
         }
-
     }
 }

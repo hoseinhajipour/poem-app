@@ -68,9 +68,8 @@ class SelectCategory extends Component
         $this->TournamentBoard->setAttribute('tournament_0' . $this->TournamentBoard->current_turn,$Tournament->id);
         $this->TournamentBoard->save();
 
-        Session::put('current_tournament', $Tournament->id);
-
-        return redirect()->to('/tournament/play');
+        return redirect()->to('/tournament/play/' . $Tournament->id . '?b=' . $this->TournamentBoard->id);
+      //  return redirect()->to('/tournament/play');
     }
 
     public function render()
