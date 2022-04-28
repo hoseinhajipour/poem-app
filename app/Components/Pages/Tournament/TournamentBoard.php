@@ -2,6 +2,8 @@
 
 namespace App\Components\Pages\Tournament;
 
+use App\Http\Controllers\SendNotificationController;
+use App\Models\CoinUseType;
 use App\Models\TournamentBoard as TournamentBoardModel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -92,8 +94,73 @@ class TournamentBoard extends Component
 
     public function endGame()
     {
+        //check how is winner
+        $first_user_win_count = 0;
+        $second_user_win_count = 0;
+
+        for ($i = 1; $i <= $this->TournamentBoard->current_turn; $i++) {
+            $tmp = $this->TournamentBoard->getAttribute("tournament0$i");
+            if ($tmp->first_user_true_answer > $tmp->second_user_true_answer) {
+                $first_user_win_count++;
+            } else if ($tmp->first_user_true_answer < $tmp->second_user_true_answer) {
+                $second_user_win_count++;
+            } else {
+                $first_user_win_count++;
+                $second_user_win_count++;
+            }
+        }
+        $this->TournamentBoard->first_user_win = $first_user_win_count;
+        $this->TournamentBoard->second_user_win = $second_user_win_count;
         $this->TournamentBoard->status = "complete";
         $this->TournamentBoard->save();
+
+        $NotificationController = new SendNotificationController();
+        if ($first_user_win_count > $second_user_win_count) {
+            /*
+                $CoinUseType = CoinUseType::where("name", "tournament_win")->first();
+                $winnerUser = User::find($this->tournament->first_user_id);
+                $winnerUser->wallet += $CoinUseType->value;
+                $winnerUser->save();
+
+                $title = "شما بردید";
+                $message = $this->tournament->firstUser->name . " <-- vs --> " . $this->tournament->secondUser->name;
+                $NotificationController->sendByUser($title, $message, $this->tournament->first_user_id);
+                $title = "شما باختید";
+                $NotificationController->sendByUser($title, $message, $this->tournament->second_user_id);
+*/
+        } else if ($first_user_win_count > $second_user_win_count) {
+            /*
+                 $CoinUseType = CoinUseType::where("name", "tournament_win")->first();
+                $winnerUser = User::find($this->tournament->second_user_id);
+                $winnerUser->wallet += $CoinUseType->value;
+                $winnerUser->save();
+
+                $title = "شما باختید";
+                $message = $this->tournament->firstUser->name . " <-- vs --> " . $this->tournament->secondUser->name;
+                $NotificationController->sendByUser($title, $message, $this->tournament->first_user_id);
+                $title = "شما بردید";
+                $NotificationController->sendByUser($title, $message, $this->tournament->second_user_id);
+             */
+        }else{
+            /*
+            $CoinUseType = CoinUseType::where("name", "tournament_equal")->first();
+            $this->tournament->firstUser->wallet += $CoinUseType->value;
+
+            $this->tournament->firstUser->save();
+
+            $this->tournament->secondUser->wallet += $CoinUseType->value;
+            $this->tournament->secondUser->save();
+
+            $title = "مساوی";
+            $message = $this->tournament->firstUser->name . " <-- vs --> " . $this->tournament->secondUser->name;
+            $NotificationController->sendByUser($title, $message, $this->tournament->first_user_id);
+            $NotificationController->sendByUser($title, $message, $this->tournament->second_user_id);
+            */
+        }
+        /*
+        $this->tournament->firstUser->UpdateScore($this->tournament->first_user_true_answer);
+        $this->tournament->secondUser->UpdateScore($this->tournament->second_user_true_answer);
+        */
         $this->redirect('/home');
     }
 
