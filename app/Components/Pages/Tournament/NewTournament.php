@@ -44,6 +44,7 @@ class NewTournament extends Component
         $Tournament->second_user_id = $otherUser[0]->id;
         $Tournament->category_id = $category[0]->id;
         $Tournament->status = "play";
+
         $Tournament->save();
 
         $questions = Quiz::where("category_id", $category[0]->id)
@@ -63,6 +64,9 @@ class NewTournament extends Component
         $TournamentBoard->tournament_01 = $Tournament->id;
         $TournamentBoard->first_user_id = auth()->user()->id;
         $TournamentBoard->second_user_id = $otherUser[0]->id;
+        if ($otherUser[0]->isbot == 1) {
+            $TournamentBoard->bot_user_id = $otherUser[0]->id;
+        }
         $TournamentBoard->save();
 
         Session::put('current_tournament', $Tournament->id);

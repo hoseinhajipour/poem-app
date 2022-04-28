@@ -337,6 +337,48 @@ footer .tab.active {
     top: 5px;
 }
 
+.gray_color {
+    color: gray;
+}
+
 .green_color {
-    color: green;
+    color: green !important;
+}
+
+.winner_result {
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+.turn_card {
+    background: #eac758;
+    border-radius: 15px;
+    padding: 15px;
+    -webkit-box-shadow: 0px 10px 12px 0px rgba(250, 209, 137, 1);
+    -moz-box-shadow: 0px 10px 12px 0px rgba(250, 209, 137, 1);
+    box-shadow: 0px 10px 12px 0px rgba(250, 209, 137, 1);
+    margin-bottom: 15px;
+}
+
+.turn_row {
+    background: #ede2c1;
+    border-radius: 15px;
+    margin-top: 5px;
+    padding: 3px;
+    box-sizing: border-box;
+    height: 85px;
+}
+
+.turn_circles {
+    padding-top: 30px;
+}
+
+.font_size_big {
+    font-size: 40px;
+    margin-top: 10px;
+    display: block;
+}
+
+.chat_content {
+    padding-bottom: 120px;
 }

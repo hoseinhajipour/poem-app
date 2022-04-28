@@ -163,10 +163,18 @@ class Play extends Component
         }
         $this->tournament->save();
 
+        if (isset($this->tournament->first_user_true_answer) && isset($this->tournament->second_user_true_answer)) {
+            if ($this->tournament->first_user_true_answer > $this->tournament->second_user_true_answer) {
+                $this->TournamentBoard->first_user_win++;
+            } else {
+                $this->TournamentBoard->second_user_win++;
+            }
+        }
+
         // Session::remove("current_tournament");
 
         return redirect()->to('/tournament/board/' . $this->TournamentBoard->id);
-       // return redirect()->to('/home');
+        // return redirect()->to('/home');
     }
 
     public function LikeQuest()
